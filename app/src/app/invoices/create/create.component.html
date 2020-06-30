@@ -1,1 +1,48 @@
-<p>create works!</p>
+<div class="py-5">
+    <h2 class="h3">Create an Invoice</h2>
+
+    <div class="border radius shadow p-3 my-5">
+
+        <form [formGroup]="invoiceForm">
+            <div class="row">    
+                <div class="col-lg-6">
+                    <h5>Customer Details</h5>
+                    <hr />
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                            <span class="input-group-text">Full Name</span>
+                            </div>
+                            <input type="text" class="form-control" placeholder="Enter a full name" aria-label="Full name" />
+                        </div>
+
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                            <span class="input-group-text">Email</span>
+                            </div>
+                            <input type="text" class="form-control" placeholder="Enter an email" aria-label="Email" />
+                        </div>            
+
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                            <span class="input-group-text">Telephone</span>
+                            </div>
+                            <input type="text" class="form-control" placeholder="Telephone" aria-label="Telephone" />
+                        </div>            
+
+                </div>
+                
+                <div class="col-lg-6 bg-light">
+                    <h5>Seller Details</h5>
+                    <hr />                   
+
+                </div>
+
+            </div>
+        </form>
+        
+    </div>
+    
+    
+
+</div>
+
