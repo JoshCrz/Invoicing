@@ -3,40 +3,54 @@
 
     <div class="border radius shadow p-3 my-5">
 
-        <form [formGroup]="invoiceForm">
+        <form [formGroup]="invoiceForm" (ngSubmit)="submit(invoiceForm)">
             <div class="row">    
                 <div class="col-lg-6">
                     <h5>Customer Details</h5>
                     <hr />
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                            <span class="input-group-text">Full Name</span>
-                            </div>
-                            <input type="text" class="form-control" placeholder="Enter a full name" aria-label="Full name" />
-                        </div>
 
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                            <span class="input-group-text">Email</span>
-                            </div>
-                            <input type="text" class="form-control" placeholder="Enter an email" aria-label="Email" />
-                        </div>            
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Full Name</label>
+                        <input type="email" class="form-control" aria-describedby="Full Name" formControlName="customerName" />
+                        <span class="small text-danger"
+                         *ngIf="(submitted && invoiceForm.controls.customerName.invalid) || !invoiceForm.controls.customerName.value && invoiceForm.controls.customerName.dirty">
+                            Please enter a full name
+                        </span>
+                    </div>
 
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                            <span class="input-group-text">Telephone</span>
-                            </div>
-                            <input type="text" class="form-control" placeholder="Telephone" aria-label="Telephone" />
-                        </div>            
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Email</label>
+                        <input type="email" class="form-control" aria-describedby="Full Name" formControlName="customerEmail" />
+                        <span class="small text-danger"
+                         *ngIf="(submitted && invoiceForm.controls.customerEmail.invalid) || !invoiceForm.controls.customerEmail.value && invoiceForm.controls.customerEmail.dirty">
+                            Please enter a valid email address
+                        </span>
+                    </div>
 
+
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Company Name</label>
+                        <input type="email" class="form-control" aria-describedby="Full Name" formControlName="customerCompany" />
+                    </div>
+      
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Telephone</label>
+                        <input type="email" class="form-control" aria-describedby="Telephone" />
+                    </div>
                 </div>
                 
+                <!--
                 <div class="col-lg-6 bg-light">
                     <h5>Seller Details</h5>
                     <hr />                   
-
                 </div>
+                -->
 
+            </div>
+            <div class="row">
+                <div class="col-12">                    
+                    <button class="btn btn-primary" type="submit">Submit</button>
+                </div>
             </div>
         </form>
         
