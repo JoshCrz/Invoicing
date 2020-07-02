@@ -33,11 +33,6 @@ namespace Repository
 
         }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-
-        }
-
 
     }
 }
