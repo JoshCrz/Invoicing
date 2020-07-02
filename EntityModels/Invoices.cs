@@ -12,6 +12,7 @@ namespace EntityModels
 
         // many to one relation between invoices and customer
         public virtual Customers Customer { get; set; }
-        
+        public virtual int CustomerID { get; set; }
+
     }
 }
