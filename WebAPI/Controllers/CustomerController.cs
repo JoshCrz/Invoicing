@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using EntityModels;
 using Repository;
+using Service;
 
 namespace WebAPI.Controllers
 {
@@ -14,13 +15,13 @@ namespace WebAPI.Controllers
     public class CustomerController : ControllerBase
     {
 
-        private CustomerContext _db;
+        private CustomerService _customerService;
 
-        // Startup.cs -> ConfigureServices, injecting customer context.
-        public CustomerController(CustomerContext customerContext) 
+        // Startup.cs -> ConfigureServices, injecting services.
+        public CustomerController(CustomerService service) 
         {
-            _db = customerContext;
-            //_db.Database.EnsureCreated();
+            _customerService = service;
+            //_customerService.DeleteAndCreateDatabase();
         }
 
         // GET: api/Customer
@@ -28,15 +29,15 @@ namespace WebAPI.Controllers
         public ActionResult<IEnumerable<Customers>> Get()
         {
             // get all customers and return
-            return Ok(_db.Customers.ToList());
+            return Ok(_customerService.GetAll());
         }
 
         // GET: api/Customer/5
         [HttpGet("{id}", Name = "Get")]
         public ActionResult<Customers> Get(int id)
         {
-            // find a customer (or null) and return
-            var customer = _db.Customers.Where(x => x.CustomerID == id).FirstOrDefault();
+            // find a customer and return
+            var customer = _customerService.GetSingle(id);
             if(customer == null)
             {
                 return NotFound();
