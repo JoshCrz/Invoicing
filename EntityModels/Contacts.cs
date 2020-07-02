@@ -1,5 +1,8 @@
 ﻿
 
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+
 namespace EntityModels
 {
     public class Contacts
@@ -20,6 +23,16 @@ namespace EntityModels
 
         // many to one relation between contacts and customer
         public virtual Customers Customer { get; set; }
-        public virtual int CustomerID { get; set; }
+
+        // many to many relation between contacts and addresses
+        public virtual ICollection<ContactsAddresses> ContactsAddresses { get; set; }
+    }
+
+    public class ContactsAddresses
+    {
+        public int ContactID { get; set; }
+        public int AddressID { get; set; }
+        public Contacts Contact { get; set; }
+        public Addresses Address { get; set; }
     }
 }

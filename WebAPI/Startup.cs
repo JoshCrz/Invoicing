@@ -10,7 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using Repository;
+using WebAPI.Configurations;
 
 namespace WebAPI
 {
@@ -28,10 +28,11 @@ namespace WebAPI
         {
             services.AddControllers();
 
-            // register customer context and use default connection (appsettings.json)
-            services.AddDbContext<CustomerContext>(options=>
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"))
-            );
+            // extension: add database context
+            services.AddDatabaseConfiguration(Configuration);
+            
+            // extension: inject services
+            services.AddServiceInjections();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
