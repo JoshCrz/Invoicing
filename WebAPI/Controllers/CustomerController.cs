@@ -4,7 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using EntityModels;   
+using EntityModels;
+using Repository;
 
 namespace WebAPI.Controllers
 {
@@ -12,34 +13,36 @@ namespace WebAPI.Controllers
     [ApiController]
     public class CustomerController : ControllerBase
     {
-        private List<Customers> customers;
-        public CustomerController()
+
+        private CustomerContext _db;
+
+        // Startup.cs -> ConfigureServices, injecting customer context.
+        public CustomerController(CustomerContext customerContext) 
         {
-            customers = new List<Customers>();
-            customers.Add(new Customers() { CustomerID = 1, CompanyName = "Company number 1" });
-            customers.Add(new Customers() { CustomerID = 2, CompanyName = "Company number 2" });
-            customers.Add(new Customers() { CustomerID = 3, CompanyName = "Company number 3" });
+            _db = customerContext;
+            //_db.Database.EnsureCreated();
         }
 
         // GET: api/Customer
         [HttpGet]
-        public IEnumerable<Customers> Get()
+        public ActionResult<IEnumerable<Customers>> Get()
         {
-            return customers;
+            // get all customers and return
+            return Ok(_db.Customers.ToList());
         }
 
         // GET: api/Customer/5
         [HttpGet("{id}", Name = "Get")]
-        public Customers Get(int id)
+        public ActionResult<Customers> Get(int id)
         {
-
-            var customer = customers.Where(x => x.CustomerID == id).FirstOrDefault();
+            // find a customer (or null) and return
+            var customer = _db.Customers.Where(x => x.CustomerID == id).FirstOrDefault();
             if(customer == null)
             {
-                throw new Exception("Customer not found");
+                return NotFound();
             }
 
-            return customer;
+            return Ok(customer);
         }
 
         // POST: api/Customer
