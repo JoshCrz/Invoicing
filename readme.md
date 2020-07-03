@@ -37,8 +37,8 @@ ef core 3.1
 **Presentation**
 
 * app
-Lazy loaded and modularised architecture.
-Simple, clean and easy to use solution. Will be provided with animations; using Angular Animations Module. App will come packaged with ng-bootstrap, for easy to use modularised components.
+>Lazy loaded and modularised architecture.
+>Simple, clean and easy to use solution. Will be provided with animations; using Angular Animations Module. App will come packaged with ng-bootstrap, for easy to use modularised components.
 
 * WebApi
 > 
