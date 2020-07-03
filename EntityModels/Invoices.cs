@@ -10,6 +10,11 @@ namespace EntityModels
 
         public string ReferenceNumber { get; set; }
 
+        public DateTime? IssuedDate { get; set; }
+        public DateTime? DueDate { get; set; }
+
+        public int? InvoiceStatusID { get; set; }
+
         // many to one relation between invoices and customer
         public virtual Customers Customer { get; set; }
 

@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using EntityModels;
 using Repository;
 using Service;
+using MediatR;
 
 namespace WebAPI.Controllers
 {
@@ -18,10 +19,14 @@ namespace WebAPI.Controllers
         private CustomerService _customerService;
 
         // Startup.cs -> ConfigureServices, injecting services.
-        public CustomerController(CustomerService service) 
+        public CustomerController(CustomerService service)
         {
             _customerService = service;
+
+            // run both to re-create db to latest with some test data. This will run on each call to the api, so comment it out after the first time.
             //_customerService.DeleteAndCreateDatabase();
+            //_customerService.SeedTestData();
+
         }
 
         // GET: api/Customer
@@ -38,7 +43,7 @@ namespace WebAPI.Controllers
         {
             // find a customer and return
             var customer = _customerService.GetSingle(id);
-            if(customer == null)
+            if (customer == null)
             {
                 return NotFound();
             }

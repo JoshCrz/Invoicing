@@ -9,7 +9,7 @@ namespace EntityModels
     {
         public Contacts()
         {
-           
+            ContactsAddresses = new HashSet<ContactsAddresses>();
         }
 
         public int ContactID { get; set; }

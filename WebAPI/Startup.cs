@@ -11,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using WebAPI.Configurations;
+using Newtonsoft.Json;
 
 namespace WebAPI
 {
@@ -26,7 +27,10 @@ namespace WebAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            services.AddControllers()
+                .AddNewtonsoftJson(config=> 
+                    config.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore // for nested entities ## move it so separate extension class ?
+                    );
 
             // extension: add database context
             services.AddDatabaseConfiguration(Configuration);

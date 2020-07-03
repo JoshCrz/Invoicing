@@ -16,9 +16,13 @@ namespace EntityModels
         public string PostCode { get; set; }
         public string Town { get; set; }
         public string County { get; set; }
+        public string Country { get; set; }
 
-        public ICollection<Customers> Customers { get; set; }
-        public ICollection<Contacts> Contacts { get; set; }
+        // many to many relation between addresses and customers
+        public virtual ICollection<CustomersAddresses> CustomersAddresses { get; set; }
+
+        // many to many relation between addresses and contacts
+        public virtual ICollection<ContactsAddresses> ContactsAddresses { get; set; }
 
 
     }

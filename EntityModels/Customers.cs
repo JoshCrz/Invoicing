@@ -9,11 +9,19 @@ namespace EntityModels
         {
             Contacts = new HashSet<Contacts>();
             Invoices = new HashSet<Invoices>();
+            CustomersAddresses = new HashSet<CustomersAddresses>();
         }
 
         public int CustomerID { get; set; }
 
         public string CompanyName { get; set; }
+        public string NatureOfBusiness { get; set; }
+        public int? CompanyStatusID { get; set; }
+        public int? CompanyTypeID { get; set; }
+        public string WebsiteUrl { get; set; }
+        public string RegistrationNumber { get; set; }
+        public string VatNumber { get; set; }
+
 
 
         // one to many relation between customers and contacts
@@ -31,7 +39,7 @@ namespace EntityModels
         public int CustomerID { get; set; }
         public int AddressID { get; set; }
         public Customers Customer { get; set; }
-        public Addresses Addresse { get; set; }
+        public Addresses Address { get; set; }
 
     }
 }

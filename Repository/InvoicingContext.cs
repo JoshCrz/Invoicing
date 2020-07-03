@@ -10,11 +10,12 @@ namespace Repository
         public DbSet<Customers> Customers { get; set; }
         public DbSet<Contacts> Contacts { get; set; }
         public DbSet<Invoices> Invoices { get; set; }
+        public DbSet<Addresses> Addresses { get; set; }
+        public DbSet<CustomersAddresses> CustomerAddresses { get; set; }
 
         
         public InvoicingContext(DbContextOptions<InvoicingContext> options):base(options)
         {
-
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
