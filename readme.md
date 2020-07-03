@@ -14,9 +14,9 @@ to create a simple  extendable invoicing system
 
 **back-end**
 
-.net core 3.1
+>.net core 3.1
 
-ef core 3.1
+>ef core 3.1
 
 
 ## Project structure
@@ -32,8 +32,9 @@ ef core 3.1
 
 * Service
 > Service will dictate the state and shape of data being passed to the api and front-end. Not sure what will go here at this moment tbh. Soon :)
-* (to do) ViewModels
-> Probably need view models to return to the front-end. Different models for write/update and details/list ? 
+> I will go with Command Pattenr for CRUD operations, and return view models from the api. Will do more googling over the new day or few and decide where ot go with this.
+* ViewModels
+> To be decided.
 
 **Presentation**
 
