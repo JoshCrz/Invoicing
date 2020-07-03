@@ -7,11 +7,9 @@ export class InvoicesService {
 
   constructor() { }
 
-
   create = (invoiceModel) => {
 
-    let guid = (Math.random().toString(16)+"000000000").substr(2,8); 
-    console.log(guid);
+    let guid = (Math.random().toString(16)+"000000000").substr(2,8);     
     invoiceModel['guid'] = guid;
     //localstorage until api
     localStorage.setItem('invoice #' + invoiceModel.guid, JSON.stringify(invoiceModel));
@@ -27,7 +25,10 @@ export class InvoicesService {
   }
 
   getById = (id) => {
-
+    for(let i = 0; i < Object.keys(localStorage).length; i++){
+      //if(id == Object.keys(localStorage)[i]);
+      console.log(Object.keys(localStorage)[i]);
+    }
   }
 
   logMe = () => {
