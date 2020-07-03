@@ -8,7 +8,8 @@ to create a simple  extendable invoicing system
 
 **front-end**
 
-Angular v?? (JC's)
+Angular v10
+Bootstrap v4
 
 **back-end**
 
@@ -36,7 +37,9 @@ ef core 3.1
 **Presentation**
 
 * app
-> Let's be honest, front end is only to look pretty and pretend to have a purpose. But maybe JC wanna remove this line, and add his own comment :) 
+Lazy loaded and modularised architecture.
+Simple, clean and easy to use solution. Will be provided with animations; using Angular Animations Module. App will come packaged with ng-bootstrap, for easy to use modularised components.
+
 * WebApi
 > 
 
