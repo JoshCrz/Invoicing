@@ -12,6 +12,9 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using WebAPI.Configurations;
 using Newtonsoft.Json;
+using MediatR;
+using System.Reflection;
+using Service.Queries;
 
 namespace WebAPI
 {
@@ -37,6 +40,15 @@ namespace WebAPI
             
             // extension: inject services
             services.AddServiceInjections();
+
+            // mediator
+            services.AddMediatR(typeof(GetCustomerListQueryHandler).GetTypeInfo().Assembly);
+
+            // cors
+            services.AddCors(c =>
+            {
+                c.AddPolicy("AllowOrigin", options => options.AllowAnyOrigin());
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

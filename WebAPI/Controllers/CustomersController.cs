@@ -7,21 +7,25 @@ using Microsoft.AspNetCore.Mvc;
 using EntityModels;
 using Repository;
 using Service;
+
+using Service.Queries;
 using MediatR;
 
 namespace WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CustomerController : ControllerBase
+    public class CustomersController : ControllerBase
     {
 
         private CustomerService _customerService;
+        private readonly IMediator _mediator;
 
         // Startup.cs -> ConfigureServices, injecting services.
-        public CustomerController(CustomerService service)
+        public CustomersController(CustomerService service, IMediator mediator)
         {
             _customerService = service;
+            _mediator = mediator;
 
             // run both to re-create db to latest with some test data. This will run on each call to the api, so comment it out after the first time.
             //_customerService.DeleteAndCreateDatabase();
@@ -33,7 +37,10 @@ namespace WebAPI.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<Customers>> Get()
         {
-            // get all customers and return
+            // get all customers and return]#
+
+            //var test = this._mediator.Send(new GetCustomerListQuery());
+
             return Ok(_customerService.GetAll());
         }
 

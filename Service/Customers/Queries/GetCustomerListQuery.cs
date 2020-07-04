@@ -8,6 +8,7 @@ using System.Threading;
 using Repository;
 using System.Linq;
 
+
 namespace Service.Queries
 {
     public class GetCustomerListQuery : IRequest<List<CustomerListVM>>
@@ -20,6 +21,10 @@ namespace Service.Queries
     {
 
         InvoicingContext _context;
+        public GetCustomerListQueryHandler(InvoicingContext context)
+        {
+            this._context = context;
+        }
         public Task<List<CustomerListVM>> Handle(GetCustomerListQuery request, CancellationToken cancellationToken)
         {
             var list  = _context.Customers.Select(entity =>
