@@ -10,10 +10,12 @@ using Service;
 
 using Service.Queries;
 using MediatR;
+using Microsoft.AspNetCore.Cors;
 
 namespace WebAPI.Controllers
 {
     [Route("api/[controller]")]
+    [EnableCors]
     [ApiController]
     public class CustomersController : ControllerBase
     {
