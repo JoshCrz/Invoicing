@@ -1,2 +1,25 @@
-<p>invoice works!</p>
-{{id}}
+<ng-container *ngIf="invoice">
+    {{invoice | json}}
+
+</ng-container>
+
+<div class="container-fluid shadow p-5 my-5">
+    <div class="container">
+        <div class="d-flex flex-row align-items-center">
+            <div class="flex-fill">
+                <h1 class="h2">Invoice</h1>
+            </div>
+            <div class="ml-auto">
+                <div>
+                    <p class="h5">11/06/20</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container my-5">
+        <!-- customer details -->
+        <p class="h4 m-0">John Doe</p>
+        <p class="font-weight-light">Managing Director</p>
+    </div>
+</div>
+

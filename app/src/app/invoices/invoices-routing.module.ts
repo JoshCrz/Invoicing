@@ -9,9 +9,11 @@ const routes: Routes = [
       { path: '', redirectTo: 'list', pathMatch: 'full'},
       { path: 'list', loadChildren: () => import('./list/list.module').then(m => m.ListModule) },
       { path: 'invoice',  loadChildren: () => import('./invoice/invoice.module').then(m => m.InvoiceModule) },
-      { path: 'create', loadChildren: () => import('./create/create.module').then(m => m.CreateModule) }
+      { path: 'create', loadChildren: () => import('./create/create.module').then(m => m.CreateModule) },
+      { path: 'delete', loadChildren: () => import('./delete/delete.module').then(m => m.DeleteModule) }  
     ]    
-  }  
+  },
+ 
 ]
  
 

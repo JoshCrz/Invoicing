@@ -11,6 +11,7 @@ import { InvoicesService } from '../invoices.service';
 export class InvoiceComponent implements OnInit {
 
   id: any;
+  invoice: any; //todo interface
 
   constructor(
     private route: ActivatedRoute,
@@ -21,8 +22,8 @@ export class InvoiceComponent implements OnInit {
   
     this.route.params.subscribe((params: any) => {
       if(params.guid) {
-        this.id = params.guid;
-        //this.invoicesService.getById(params.guid);
+        //this.id = params.guid;
+        this.invoicesService.getById(params.guid);
       }
     })
 
