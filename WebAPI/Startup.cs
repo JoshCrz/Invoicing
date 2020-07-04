@@ -69,7 +69,7 @@ namespace WebAPI
             });
 
 
-            app.UseCors("AllowOrigin");
+            app.UseCors(o=> o.AllowAnyOrigin());
         }
     }
 }
