@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
-import { formatCurrency } from '@angular/common';
+
+
 
 @Component({
   selector: 'app-create',
@@ -10,6 +11,12 @@ import { formatCurrency } from '@angular/common';
 export class CreateComponent implements OnInit {
 
   customerForm: FormGroup;
+  addressForm: FormGroup;
+
+  data: any = {
+    addressLine1: "39",
+    addressLine2: "Ironbridge Road"
+  }
 
   constructor() { }
 
@@ -23,11 +30,15 @@ export class CreateComponent implements OnInit {
       companyTypeId: new FormControl(),
       websiteUrl: new FormControl(),
       registrationNumber: new FormControl(),
-      vatNumber: new FormControl()
+      vatNumber: new FormControl()      
     })
 
-    //create nested form to handle addresses and contacts
 
+  }
+
+
+  childFormEvent = (value) => {
+    console.log(value);    
   }
 
 }

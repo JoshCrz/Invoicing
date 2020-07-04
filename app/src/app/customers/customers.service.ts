@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -9,10 +9,13 @@ export class CustomersService {
 
   constructor(private _http: HttpClient) { }
 
-  getCustomers = () => {
-    console.log('get customers')
+  getCustomers = () => {    
+
+    let headers = new HttpHeaders();
+    headers = headers.set('Access-Control-Allow-Origin', '*');    
+    headers = headers.set('withCredentials', 'true');
     return this._http.get(
-      `${environment.apiUrl}customer/`
+      `${environment.apiUrl}Customers`, {headers}
     )
     
   }

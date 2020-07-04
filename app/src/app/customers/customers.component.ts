@@ -12,9 +12,9 @@ export class CustomersComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.customersService.getCustomers().subscribe((res: any) => {
+   /* this.customersService.getCustomers().subscribe((res: any) => {
       console.log(res);
-    })
+    })*/
     
   }
 
