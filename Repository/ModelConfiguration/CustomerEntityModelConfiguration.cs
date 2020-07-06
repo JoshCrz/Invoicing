@@ -44,8 +44,15 @@ namespace Repository.ModelConfiguration
             builder
                 .HasMany(m => m.Invoices)
                 .WithOne(m => m.Customer); // relation between invocies and customer (as above)
-            
-          
+
+            builder
+                .HasOne(m => m.CustomerStatus)
+                .WithMany(m => m.Customers);
+
+            builder
+                .HasOne(m => m.CustomerType)
+                .WithMany(m => m.Customers);
+
         }
     }
 

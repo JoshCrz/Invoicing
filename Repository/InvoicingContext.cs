@@ -12,8 +12,11 @@ namespace Repository
         public DbSet<Invoices> Invoices { get; set; }
         public DbSet<Addresses> Addresses { get; set; }
         public DbSet<CustomersAddresses> CustomerAddresses { get; set; }
+        public DbSet<CustomerStatuses> CustomerStatuses { get; set; }
 
-        
+        public DbSet<CustomerTypes> CustomerTypes { get; set; }
+
+
         public InvoicingContext(DbContextOptions<InvoicingContext> options):base(options)
         {
         }

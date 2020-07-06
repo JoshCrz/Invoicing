@@ -7,8 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using EntityModels;
 using Repository;
 using Service;
-
 using Service.Queries;
+using Service.ViewModels;
 using MediatR;
 using Microsoft.AspNetCore.Cors;
 
@@ -36,27 +36,27 @@ namespace WebAPI.Controllers
 
         // GET: api/Customer
         [HttpGet]
-        public ActionResult<IEnumerable<Customers>> Get()
+        [HttpOptions]
+        public ActionResult<IEnumerable<CustomerListDTO>> Get()
         {
-            // get all customers and return]#
-
-            //var test = this._mediator.Send(new GetCustomerListQuery());
-
-            return Ok(_customerService.GetAll());
+            // get all customers and return
+            var query = this._mediator.Send(new GetCustomerListQuery());
+           
+            return Ok(query.Result);
         }
 
         // GET: api/Customer/5
         [HttpGet("{id}", Name = "Get")]
-        public ActionResult<Customers> Get(int id)
+        public ActionResult<CustomerDetailsDTO> Get(int id)
         {
             // find a customer and return
-            var customer = _customerService.GetSingle(id);
-            if (customer == null)
+            var query = this._mediator.Send(new GetCustomerDetailsQuery() { CustomerID = id });
+            if (query == null)
             {
                 return NotFound();
             }
 
-            return Ok(customer);
+            return Ok(query.Result);
         }
 
         // POST: api/Customer
