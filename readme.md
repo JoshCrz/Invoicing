@@ -75,6 +75,15 @@ to create a simple  extendable invoicing system
 * WebApi
 > 
 
+## Issues
+
+> Need to figure out MediatoR, as it doesn't make sense, kind of: 
+> having the following 
+
+> services.AddMediatR(typeof(GetCustomerListQueryHandler).GetTypeInfo().Assembly);
+
+> let my GetCustomerDetails query handler to run as well. But why ? if i only registered ListQuery handler
+
 
 
 
