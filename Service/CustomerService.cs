@@ -104,7 +104,7 @@ namespace Service
                 {
                     FirstName = "Tom",
                     LastName = "Mot",
-                    Tel= "01743665599",
+                    Tel = "01743665599",
                     Mobile = "07907995566",
                     Email = "tom@gmail.com"
                 },
@@ -158,8 +158,8 @@ namespace Service
             db.CustomerAddresses.AddRange(
                 new CustomersAddresses()
                 {
-                    Customer = db.Customers.FirstOrDefault(x=> x.CustomerID ==1 ),
-                    Address = db.Addresses.FirstOrDefault(x=> x.AddressID == 1)
+                    Customer = db.Customers.FirstOrDefault(x => x.CustomerID == 1),
+                    Address = db.Addresses.FirstOrDefault(x => x.AddressID == 1)
                 },
                 new CustomersAddresses()
                 {
@@ -179,9 +179,28 @@ namespace Service
             );
             db.SaveChanges();
 
+            db.CustomerStatuses.AddRange(
+                new CustomerStatuses() { CustomerStatus = "Active" },
+                new CustomerStatuses() { CustomerStatus = "InActive" },
+                new CustomerStatuses() { CustomerStatus = "Susspended" }
+            );
+            db.CustomerTypes.AddRange(
+                new CustomerTypes() { CustomerType = "Business" },
+                new CustomerTypes() { CustomerType = "Contractor" },
+                new CustomerTypes() { CustomerType = "Freelancer" }
+            );
+            db.SaveChanges();
+
             db.Customers.FirstOrDefault(x => x.CustomerID == 1).Contacts.Add(db.Contacts.FirstOrDefault(x => x.ContactID == 1));
             db.Customers.FirstOrDefault(x => x.CustomerID == 2).Contacts.Add(db.Contacts.FirstOrDefault(x => x.ContactID == 2));
             db.Customers.FirstOrDefault(x => x.CustomerID == 3).Contacts.Add(db.Contacts.FirstOrDefault(x => x.ContactID == 3));
+
+            db.Customers.FirstOrDefault(x => x.CustomerID == 1).CustomerStatusID = 1;
+            db.Customers.FirstOrDefault(x => x.CustomerID == 1).CustomerTypeID = 1;
+            db.Customers.FirstOrDefault(x => x.CustomerID == 2).CustomerStatusID = 2;
+            db.Customers.FirstOrDefault(x => x.CustomerID == 2).CustomerTypeID = 2;
+            db.Customers.FirstOrDefault(x => x.CustomerID == 3).CustomerStatusID = 3;
+            db.Customers.FirstOrDefault(x => x.CustomerID == 3).CustomerTypeID = 3;
             db.SaveChanges();
         }
 

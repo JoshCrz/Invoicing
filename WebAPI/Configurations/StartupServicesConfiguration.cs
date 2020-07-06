@@ -3,6 +3,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Repository;
 using Service;
+using Service.Queries;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,6 +27,8 @@ namespace WebAPI.Configurations
         {
             // regsiter business services
             services.AddScoped<CustomerService>();
+
+            services.AddScoped<GetCustomerDetailsQuery>();
         }
 
     }

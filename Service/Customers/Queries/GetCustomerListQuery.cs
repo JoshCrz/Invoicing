@@ -7,35 +7,30 @@ using System.Threading.Tasks;
 using System.Threading;
 using Repository;
 using System.Linq;
-
+using AutoMapper;
+using AutoMapper.QueryableExtensions;
 
 namespace Service.Queries
 {
-    public class GetCustomerListQuery : IRequest<List<CustomerListVM>>
+    public class GetCustomerListQuery : IRequest<List<CustomerListDTO>>
     {
 
 
     }
 
-    public class GetCustomerListQueryHandler : IRequestHandler<GetCustomerListQuery, List<CustomerListVM>>
+    public class GetCustomerListQueryHandler : IRequestHandler<GetCustomerListQuery, List<CustomerListDTO>>
     {
 
         InvoicingContext _context;
-        public GetCustomerListQueryHandler(InvoicingContext context)
+        IMapper _mapper;
+        public GetCustomerListQueryHandler(InvoicingContext context, IMapper mapper)
         {
             this._context = context;
+            this._mapper = mapper;
         }
-        public Task<List<CustomerListVM>> Handle(GetCustomerListQuery request, CancellationToken cancellationToken)
+        public Task<List<CustomerListDTO>> Handle(GetCustomerListQuery request, CancellationToken cancellationToken)
         {
-            var list  = _context.Customers.Select(entity =>
-                new CustomerListVM()
-                {
-                    CompanyName = entity.CompanyName,
-                    NatureOfBusiness = entity.NatureOfBusiness,
-                    CompanyStatus = "hard-coded status",
-                    CompanyType = "hard-coded type"
-                }
-            ).ToList();
+            var list  = _context.Customers.ProjectTo<CustomerListDTO>(_mapper.ConfigurationProvider).ToList();
 
             return  Task.FromResult(list);
         }

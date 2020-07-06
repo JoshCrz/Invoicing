@@ -15,6 +15,9 @@ using Newtonsoft.Json;
 using MediatR;
 using System.Reflection;
 using Service.Queries;
+using AutoMapper;
+using EntityModels;
+using Service.ViewModels;
 
 namespace WebAPI
 {
@@ -57,6 +60,10 @@ namespace WebAPI
             // mediator
             services.AddMediatR(typeof(GetCustomerListQueryHandler).GetTypeInfo().Assembly);
 
+            // automapper
+            services.AddAutoMapper(typeof(AutoMapperConfiguration));
+
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -79,7 +86,12 @@ namespace WebAPI
             });
 
 
+
+
             
         }
     }
+
+   
+
 }

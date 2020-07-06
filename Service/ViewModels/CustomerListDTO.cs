@@ -4,18 +4,21 @@ using System.Text;
 
 namespace Service.ViewModels
 {
-    public class CustomerListVM
+    public class CustomerListDTO
     {
-        public CustomerListVM()
+        public CustomerListDTO()
         {
-            CompanyStatus = "Hard-coded Status";
-            CompanyType = "Hard-coded Type";
+           
         }
+        public int CustomerID { get; set; }
 
         public string CompanyName { get; set; }
         public string NatureOfBusiness { get; set; }
 
         public string CompanyStatus { get; set; }
         public string CompanyType { get; set; }
+        public string WebsiteUrl { get; set; }
+        public string RegistrationNumber { get; set; }
+        public string VatNumber { get; set; }
     }
 }
