@@ -36,6 +36,7 @@ namespace WebAPI.Controllers
 
         // GET: api/Customer
         [HttpGet]
+        [HttpOptions]
         public ActionResult<IEnumerable<Customers>> Get()
         {
             // get all customers and return]#

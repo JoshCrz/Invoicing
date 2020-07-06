@@ -30,10 +30,23 @@ namespace WebAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
             services.AddControllers()
                 .AddNewtonsoftJson(config=> 
                     config.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore // for nested entities ## move it so separate extension class ?
                     );
+
+            // cors
+            services.AddCors(c =>
+            {
+                c.AddPolicy("AllowOrigin", o =>
+
+                    o.SetIsOriginAllowed(s => true)
+                    .AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader()
+                );
+            });
 
             // extension: add database context
             services.AddDatabaseConfiguration(Configuration);
@@ -44,16 +57,13 @@ namespace WebAPI
             // mediator
             services.AddMediatR(typeof(GetCustomerListQueryHandler).GetTypeInfo().Assembly);
 
-            // cors
-            services.AddCors(c =>
-            {
-                c.AddPolicy("AllowOrigin", options => options.AllowAnyOrigin());
-            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.UseCors("AllowOrigin");
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -69,7 +79,7 @@ namespace WebAPI
             });
 
 
-            app.UseCors(o=> o.AllowAnyOrigin());
+            
         }
     }
 }
