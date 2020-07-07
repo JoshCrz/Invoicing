@@ -12,13 +12,13 @@ using AutoMapper.QueryableExtensions;
 
 namespace Service.Queries
 {
-    public class GetCustomerListQuery : IRequest<List<CustomerListDTO>>
+    public class GetCustomerListQuery : IServiceRequestWrapper<List<CustomerListDTO>>
     {
 
 
     }
 
-    public class GetCustomerListQueryHandler : IRequestHandler<GetCustomerListQuery, List<CustomerListDTO>>
+    public class GetCustomerListQueryHandler : IServiceRequestHandlerWrapper<GetCustomerListQuery, List<CustomerListDTO>>
     {
 
         InvoicingContext _context;
@@ -28,11 +28,11 @@ namespace Service.Queries
             this._context = context;
             this._mapper = mapper;
         }
-        public Task<List<CustomerListDTO>> Handle(GetCustomerListQuery request, CancellationToken cancellationToken)
+        public Task<ServiceResponse<List<CustomerListDTO>>> Handle(GetCustomerListQuery request, CancellationToken cancellationToken)
         {
             var list  = _context.Customers.ProjectTo<CustomerListDTO>(_mapper.ConfigurationProvider).ToList();
 
-            return  Task.FromResult(list);
+            return Task.FromResult(ServiceResponse.Ok(list));
         }
     }
 }

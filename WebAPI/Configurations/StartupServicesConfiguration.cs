@@ -26,9 +26,7 @@ namespace WebAPI.Configurations
         public static void AddServiceInjections(this IServiceCollection services)
         {
             // regsiter business services
-            services.AddScoped<CustomerService>();
-
-            services.AddScoped<GetCustomerDetailsQuery>();
+            services.AddScoped<CustomersService>();
         }
 
     }

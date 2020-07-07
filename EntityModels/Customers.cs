@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace EntityModels
 {
-    public class Customers
+    public class Customers //: IAuditableEntity
     {
         public Customers()
         {

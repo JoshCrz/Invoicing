@@ -9,8 +9,9 @@ using Repository;
 using Service;
 using Service.Queries;
 using Service.ViewModels;
-using MediatR;
 using Microsoft.AspNetCore.Cors;
+using Service.Commands;
+
 
 namespace WebAPI.Controllers
 {
@@ -19,14 +20,12 @@ namespace WebAPI.Controllers
     public class CustomersController : ControllerBase
     {
 
-        private CustomerService _customerService;
-        private readonly IMediator _mediator;
+        private CustomersService _customerService;
 
         // Startup.cs -> ConfigureServices, injecting services.
-        public CustomersController(CustomerService service, IMediator mediator)
+        public CustomersController(CustomersService service)
         {
             _customerService = service;
-            _mediator = mediator;
 
             // run both to re-create db to latest with some test data. This will run on each call to the api, so comment it out after the first time.
             //_customerService.DeleteAndCreateDatabase();
@@ -37,47 +36,46 @@ namespace WebAPI.Controllers
         // GET: api/Customer
         [HttpGet]
         [HttpOptions]
-        public ActionResult<IEnumerable<CustomerListDTO>> Get()
+        public ActionResult<ServiceResponse<IEnumerable<CustomerListDTO>>> Get()
         {
-            // get all customers and return
-            var query = this._mediator.Send(new GetCustomerListQuery());
+            var query = _customerService.GetAll();
            
-            return Ok(query.Result);
+            return Ok(query);
         }
 
         // GET: api/Customer/5
         [HttpGet("{id}", Name = "Get")]
-        public ActionResult<CustomerDetailsDTO> Get(int id)
+        public ActionResult<ServiceResponse<CustomerDetailsDTO>> Get(int id)
         {
             // find a customer and return
-            var query = this._mediator.Send(new GetCustomerDetailsQuery() { CustomerID = id });
+            var query = _customerService.GetSingle(id);
             if (query == null)
             {
                 return NotFound();
             }
 
-            return Ok(query.Result);
+            return Ok(query);
         }
 
         // POST: api/Customer
         [HttpPost]
-        public void Post([FromBody] string value)
+        public ActionResult<ServiceResponse<CustomerDetailsDTO>> Post([FromBody] CreateCustomerCommand command)
         {
-            throw new NotImplementedException();
+           return  Ok(_customerService.Add(command));
         }
 
         // PUT: api/Customer/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public ActionResult<ServiceResponse<CustomerDetailsDTO>> Put(int id, [FromBody] UpdateCustomerCommand command)
         {
-            throw new NotImplementedException();
+            return Ok(_customerService.Update(id, command));
         }
 
         // DELETE: api/ApiWithActions/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public ActionResult<ServiceResponse<CustomerDetailsDTO>> Delete(int id)
         {
-            throw new NotImplementedException();
+            return Ok(_customerService.Delete(id));
         }
     }
 }

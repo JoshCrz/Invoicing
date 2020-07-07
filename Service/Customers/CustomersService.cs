@@ -3,52 +3,58 @@ using System.Collections.Generic;
 using System.Linq;
 using EntityModels;
 using Repository;
+using MediatR;
+using Service.Queries;
+using Service.ViewModels;
+using Service.Commands;
 
 namespace Service
 {
-    public class CustomerService
+    public class CustomersService // add generic crud interface ? 
     {
 
         InvoicingContext db;
+        IMediator _mediator;
 
-        public CustomerService(InvoicingContext context)
+        public CustomersService(InvoicingContext context, IMediator mediator)
         {
             db = context;
+            _mediator = mediator;
         }
 
-        public List<Customers> GetAll()
+        public ServiceResponse<List<CustomerListDTO>> GetAll()
         {
-            return db.Customers.ToList();
+            return _mediator
+                    .Send(new GetCustomerListQuery()).Result;
         }
 
-        public Customers GetSingle(int customerID)
+        public ServiceResponse<CustomerDetailsDTO> GetSingle(int customerID)
         {
-            return db.Customers.FirstOrDefault(x => x.CustomerID == customerID);
+            return _mediator
+                    .Send(new GetCustomerDetailsQuery() { CustomerID = customerID }).Result;
         }
 
 
-        public Customers Add(Customers model)
+        public ServiceResponse<CustomerDetailsDTO> Add(CreateCustomerCommand command)
         {
-            db.Customers.Add(model);
-            db.SaveChanges();
-
-            return model;
+            return _mediator
+                    .Send(command).Result;
         }
 
-        public Customers Update(int customerID, Customers model)
+        public ServiceResponse<CustomerDetailsDTO> Update(int customerID, UpdateCustomerCommand command)
         {
-            db.Customers.Update(model);
-            db.SaveChanges();
-
-            return model;
+            if(customerID != command.CustomerID) {
+                throw new Exception("IDs dont match");
+            }
+            return _mediator
+                    .Send(command).Result;
         }
 
-        public Customers Delete(int customerID)
+        public ServiceResponse<CustomerDetailsDTO> Delete(int customerID)
         {
-            var model = db.Customers.FirstOrDefault(x => x.CustomerID == customerID);
-            db.Customers.Remove(model);
+            return _mediator
+                    .Send(new DeleteCustomerCommand() { CustomerID = customerID }).Result;
 
-            return model;
         }
 
         public void DeleteAndCreateDatabase()
