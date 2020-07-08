@@ -28,26 +28,64 @@ namespace Service
                     .Send(new GetCustomerListQuery()).Result;
         }
 
-        public ServiceResponse<CustomerDetailsDTO> GetSingle(int customerID)
+        public ServiceResponse<GetCustomerDetailsQuery, CustomerDetailsDTO> GetSingle(int customerID)
         {
-            return _mediator
-                    .Send(new GetCustomerDetailsQuery() { CustomerID = customerID }).Result;
+            var query = new GetCustomerDetailsQuery() { CustomerID = customerID };
+            var cresult = _mediator
+                            .Send(query).Result;
+
+            if (cresult == null) 
+                return ServiceResponse.NotFound(query, cresult);
+
+            return ServiceResponse
+                    .Ok(query, cresult);
         }
 
 
-        public ServiceResponse<CustomerDetailsDTO> Add(CreateCustomerCommand command)
+        public ServiceResponse<CreateCustomerCommand, CustomerDetailsDTO> Add(CreateCustomerCommand command)
         {
-            return _mediator
-                    .Send(command).Result;
+            CustomerDetailsDTO cresult = null;
+            try
+            {
+                cresult = _mediator
+                                .Send(command).Result;
+            }
+            catch (FluentValidation.ValidationException e)
+            {
+                return ServiceResponse
+                        .Fail(command, new CustomerDetailsDTO(), e.Errors, e.Message);
+            }
+
+            return ServiceResponse
+                    .Ok(command, cresult, "success");
         }
 
-        public ServiceResponse<CustomerDetailsDTO> Update(int customerID, UpdateCustomerCommand command)
+        public ServiceResponse<UpdateCustomerCommand,CustomerDetailsDTO> Update(int customerID, UpdateCustomerCommand command)
         {
-            if(customerID != command.CustomerID) {
+            CustomerDetailsDTO cresult = null;
+
+            if (command.CustomerID != customerID)
+                return ServiceResponse
+                        .MismatchIDs(command, new CustomerDetailsDTO() { CustomerID = customerID });
+
+            try
+            {
+                cresult = _mediator
+                            .Send(command).Result;
+            }
+            catch (FluentValidation.ValidationException e)
+            {
+                return ServiceResponse
+                            .Fail(command, new CustomerDetailsDTO(), e.Errors, e.Message);
+            }
+            if (customerID != command.CustomerID)
+            {
                 throw new Exception("IDs dont match");
             }
-            return _mediator
-                    .Send(command).Result;
+
+            return ServiceResponse
+                    .Ok(command, cresult, "success");
+
         }
 
         public ServiceResponse<CustomerDetailsDTO> Delete(int customerID)

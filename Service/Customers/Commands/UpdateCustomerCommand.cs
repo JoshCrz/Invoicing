@@ -7,10 +7,11 @@ using MediatR;
 using Repository;
 using Service.ViewModels;
 using AutoMapper;
+using FluentValidation;
 
 namespace Service.Commands
 {
-    public class UpdateCustomerCommand : IServiceRequestWrapper<CustomerDetailsDTO>
+    public class UpdateCustomerCommand : IRequest<CustomerDetailsDTO>
     {
         public int CustomerID { get; set; }
 
@@ -24,7 +25,7 @@ namespace Service.Commands
         public string VatNumber { get; set; }
     }
 
-    public class UpdateCustomerCommandHandler : IServiceRequestHandlerWrapper<UpdateCustomerCommand, CustomerDetailsDTO>
+    public class UpdateCustomerCommandHandler : IRequestHandler<UpdateCustomerCommand, CustomerDetailsDTO>
     {
         InvoicingContext _context;
         IMapper _mapper;
@@ -33,7 +34,7 @@ namespace Service.Commands
             _context = context;
             _mapper = mapper;
         }
-        public Task<ServiceResponse<CustomerDetailsDTO>> Handle(UpdateCustomerCommand request, CancellationToken cancellationToken)
+        public Task<CustomerDetailsDTO> Handle(UpdateCustomerCommand request, CancellationToken cancellationToken)
         {
             var entity = _mapper.Map<EntityModels.Customers>(request);
 
@@ -42,7 +43,17 @@ namespace Service.Commands
 
             var dto = _mapper.Map<CustomerDetailsDTO>(entity);
 
-            return Task.FromResult(ServiceResponse.Ok<CustomerDetailsDTO>(dto));
+            return Task.FromResult(dto);
         }
     }
+
+
+    public class UpdateCustomerCommandValidator : AbstractValidator<UpdateCustomerCommand>
+    {
+        public UpdateCustomerCommandValidator()
+        {
+            
+        }
+    }
+
 }

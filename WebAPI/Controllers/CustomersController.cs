@@ -36,7 +36,7 @@ namespace WebAPI.Controllers
         // GET: api/Customer
         [HttpGet]
         [HttpOptions]
-        public ActionResult<ServiceResponse<IEnumerable<CustomerListDTO>>> Get()
+        public ActionResult Get()
         {
             var query = _customerService.GetAll();
            
@@ -45,21 +45,17 @@ namespace WebAPI.Controllers
 
         // GET: api/Customer/5
         [HttpGet("{id}", Name = "Get")]
-        public ActionResult<ServiceResponse<CustomerDetailsDTO>> Get(int id)
+        public ActionResult Get(int id)
         {
             // find a customer and return
             var query = _customerService.GetSingle(id);
-            if (query == null)
-            {
-                return NotFound();
-            }
-
+           
             return Ok(query);
         }
 
         // POST: api/Customer
         [HttpPost]
-        public ActionResult<ServiceResponse<CustomerDetailsDTO>> Post([FromBody] CreateCustomerCommand command)
+        public ActionResult Post([FromBody] CreateCustomerCommand command)
         {
            return  Ok(_customerService.Add(command));
         }

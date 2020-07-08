@@ -18,6 +18,9 @@ using Service.Queries;
 using AutoMapper;
 using EntityModels;
 using Service.ViewModels;
+using Service;
+using FluentValidation;
+using Service.Commands;
 
 namespace WebAPI
 {
@@ -58,7 +61,9 @@ namespace WebAPI
             services.AddServiceInjections();
 
             // mediator
-            services.AddMediatR(typeof(GetCustomerListQueryHandler).GetTypeInfo().Assembly);
+            services.AddMediatR(typeof(CustomersService).Assembly);
+            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(RequestModelValidator<,>));
+            services.AddValidatorsFromAssembly(typeof(CustomersService).Assembly);
 
             // automapper
             services.AddAutoMapper(typeof(AutoMapperConfiguration));

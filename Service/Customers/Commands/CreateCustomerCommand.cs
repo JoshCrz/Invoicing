@@ -7,10 +7,11 @@ using MediatR;
 using Repository;
 using Service.ViewModels;
 using AutoMapper;
+using FluentValidation;
 
 namespace Service.Commands
 {
-    public class CreateCustomerCommand : IServiceRequestWrapper<CustomerDetailsDTO>
+    public class CreateCustomerCommand : IRequest<CustomerDetailsDTO>
     {
         public string CompanyName { get; set; }
         public string NatureOfBusiness { get; set; }
@@ -22,7 +23,7 @@ namespace Service.Commands
         public string VatNumber { get; set; }
     }
 
-    public class CreateCustomerCommandHandler : IServiceRequestHandlerWrapper<CreateCustomerCommand, CustomerDetailsDTO>
+    public class CreateCustomerCommandHandler : IRequestHandler<CreateCustomerCommand, CustomerDetailsDTO>
     {
         InvoicingContext _context;
         IMapper _mapper;
@@ -31,7 +32,7 @@ namespace Service.Commands
             _context = context;
             _mapper = mapper;
         }
-        public Task<ServiceResponse<CustomerDetailsDTO>> Handle(CreateCustomerCommand request, CancellationToken cancellationToken)
+        public Task<CustomerDetailsDTO> Handle(CreateCustomerCommand request, CancellationToken cancellationToken)
         {
             var entity = _mapper.Map<EntityModels.Customers>(request);
 
@@ -40,7 +41,15 @@ namespace Service.Commands
 
             var dto = _mapper.Map<CustomerDetailsDTO>(entity);
 
-            return Task.FromResult(ServiceResponse.Ok<CustomerDetailsDTO>(dto));
+            return Task.FromResult(dto);
+        }
+    }
+
+    public class CreateCustomerCommandValidator : AbstractValidator<CreateCustomerCommand>
+    {
+        public CreateCustomerCommandValidator()
+        {
+            RuleFor(x => x.CompanyName).NotEmpty();
         }
     }
 }
