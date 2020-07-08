@@ -1,1 +1,48 @@
-<p>customer works!</p>
+<div class="container-fluid shadow p-5 my-5">
+    <ng-container *ngIf="customer; else noCustomer">
+        <div class="container">
+            <div class="d-flex flex-row align-items-center">
+                <div class="flex-fill">
+                    <h1 class="h2 m-0">{{customer.companyName}}</h1>
+                    <p><strong>{{customer.companyType}}</strong></p>
+                </div>   
+                <div class="ml-auto">
+                    <span class="badge" [ngClass]="[customer.companyStatus == 'InActive' ? 'badge-warning' : 'badge-success']">
+                        {{customer.companyStatus == 'InActive' ? 'Not Active' : 'Active'}}
+                    </span>
+                </div>         
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-lg-6">
+                    <p>{{customer.natureOfBusiness}}</p>                    
+                    <div class="my-2">
+                        <a class="btn btn-primary text-white" href="{{customer.websiteUrl}}" target="_blank">Visit customer website</a>
+                    </div>
+                </div>                                
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <hr />
+                    <p>
+                        <span class="font-weight-light">
+                            Registration Number: 
+                        </span>
+                        <strong>{{customer.registrationNumber}}</strong>
+                    </p>        
+                    <p>
+                        <span class="font-weight-light">
+                            VAT Number: 
+                        </span>
+                        <strong>{{customer.vatNumber}}</strong>
+                    </p>                        
+                    
+                </div>
+            </div>
+        </div>
+    </ng-container>
+    <ng-template #noCustomer>
+        No customer loaded. This will be a nice error message //todo
+    </ng-template>
+</div>

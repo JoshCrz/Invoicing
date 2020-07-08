@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
-
+import { CustomersService } from '../customers.service';
 
 
 @Component({
@@ -12,18 +12,18 @@ export class CreateComponent implements OnInit {
 
   customerForm: FormGroup;
   addressForm: FormGroup;
+  submitted: boolean;
 
   data: any = {
     addressLine1: "39",
     addressLine2: "Ironbridge Road"
   }
 
-  constructor() { }
+  constructor(private customersService: CustomersService) { }
 
   ngOnInit(): void {
 
-    this.customerForm = new FormGroup({
-      id: new FormControl(),
+    this.customerForm = new FormGroup({      
       companyName: new FormControl(),
       natureOfBusiness: new FormControl(),
       companyStatusId: new FormControl(),
@@ -36,9 +36,28 @@ export class CreateComponent implements OnInit {
 
   }
 
+  submit = (form) => {
 
+    this.submitted = true;
+
+    console.log(form)
+
+    if(form.valid){
+
+    this.customersService.createCustomer(form.value)
+      .subscribe((res: any) => {
+        console.log(res);
+      })
+      
+
+    }
+  }
+
+
+  /*
   childFormEvent = (value) => {
     console.log(value);    
   }
+  */
 
 }

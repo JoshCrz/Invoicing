@@ -8,16 +8,18 @@ import { CustomersService } from '../customers.service';
 })
 export class ListComponent implements OnInit {
 
-  customers: any;
+  customers: any; //todo interface   
 
   constructor(private customersService: CustomersService) { }
 
   ngOnInit(): void {
 
-this.customersService.getCustomers()
-    .subscribe((res: any) => {
-      this.customers = res;
-    })
+
+    this.customersService.getCustomers()
+      .subscribe((res: any) => {
+        this.customers = res.data;
+      })
+
   }
 
 }

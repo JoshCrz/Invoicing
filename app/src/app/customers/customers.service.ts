@@ -20,4 +20,17 @@ export class CustomersService {
     
   }
 
+  createCustomer = (customerModel) => {
+   return this._http.post(
+     `${environment.apiUrl}Customers`, 
+      customerModel
+   ) 
+  }
+
+  getCustomer = (id) => {
+    return this._http.get(
+      `${environment.apiUrl}Customers/` + id
+    )
+  }
+
 }

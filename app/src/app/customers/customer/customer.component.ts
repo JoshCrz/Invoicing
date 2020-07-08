@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { CustomersService } from '../customers.service';
 
 @Component({
   selector: 'app-customer',
@@ -7,9 +9,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CustomerComponent implements OnInit {
 
-  constructor() { }
+  customer: any; //todo interface
+
+  constructor(private route: ActivatedRoute, private customersService: CustomersService) { }
 
   ngOnInit(): void {
+    this.route.queryParams.subscribe((params: any) => {
+      //will implement a routeGuard to ensure id is being passed
+      if(params.id){
+        this.customersService.getCustomer(params.id)
+          .subscribe((res: any) => {
+            //implement interface
+            this.customer = res.data;
+          })
+      }
+    })
   }
 
 }
