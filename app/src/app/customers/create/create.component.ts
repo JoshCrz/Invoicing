@@ -26,30 +26,26 @@ export class CreateComponent implements OnInit {
     this.customerForm = new FormGroup({      
       companyName: new FormControl(),
       natureOfBusiness: new FormControl(),
-      companyStatusId: new FormControl(),
-      companyTypeId: new FormControl(),
+      customerStatusID: new FormControl(),
+      customerTypeID: new FormControl(),
       websiteUrl: new FormControl(),
       registrationNumber: new FormControl(),
       vatNumber: new FormControl()      
     })
-
 
   }
 
   submit = (form) => {
 
     this.submitted = true;
-
-    console.log(form)
+    console.log(form.value)
 
     if(form.valid){
 
-    this.customersService.createCustomer(form.value)
-      .subscribe((res: any) => {
-        console.log(res);
-      })
-      
-
+      this.customersService.createCustomer(form.value)
+        .subscribe((res: any) => {
+          console.log(res);
+        })      
     }
   }
 

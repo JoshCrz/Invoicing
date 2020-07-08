@@ -12,42 +12,45 @@
                 <div class="col-12 col-lg-6">
                     <div class="form-group">
                         <label for="exampleInputEmail1">Company Name</label>
-                        <input type="text" class="form-control">
+                        <input type="text" class="form-control" formControlName="companyName">
                     </div>
 
                     <div class="form-group">
                         <label for="exampleInputEmail1">Website Url</label>
-                        <input type="text" class="form-control">
+                        <input type="text" class="form-control" formControlName="websiteUrl">
                     </div>
 
                 </div>
                 <div class="col-12 col-lg-6">
+                     <!--
+
                     <div class="form-group text-center">
                         <div class="p-5 border d-inline-block">
                             <i class="text-muted small">Company Logo</i>
                         </div>
                     </div>
                     
+                   
+                        <div class="input-group mb-3">  
+                            <div class="custom-file">
+                                <input type="file" class="custom-file-input">
+                                <label class="custom-file-label" for="inputGroupFile02" aria-describedby="inputGroupFileAddon02">Choose file</label>
+                            </div>
+                                <div class="input-group-append">
+                                <span class="input-group-text">Upload</span>
+                            </div>
+                        </div>
+                    -->
 
-                    <div class="input-group mb-3">  
-                        <div class="custom-file">
-                            <input type="file" class="custom-file-input">
-                            <label class="custom-file-label" for="inputGroupFile02" aria-describedby="inputGroupFileAddon02">Choose file</label>
-                        </div>
-                            <div class="input-group-append">
-                            <span class="input-group-text">Upload</span>
-                        </div>
-                    </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-12 col-lg-6">
 
-                    
                     <div class="form-group">
                         <label>Company Type</label>
                         <div class="input-group mb-3">                    
-                            <select class="custom-select">
+                            <select class="custom-select" formControlName="customerTypeID">
                             <option selected>Choose...</option>
                             <option value="1">One</option>
                             <option value="2">Two</option>
@@ -57,15 +60,26 @@
                     </div>
                     
                     <div class="form-group">
+                        <label>Customer Status ID</label>
+                        <input class="form-control" type="text" formControlName="customerStatusID" />
+                    </div>
+
+                    <div class="form-group">
+                        <label>Nature Of Business</label>
+                        <input class="form-control" type="text" formControlName="natureOfBusiness" />
+                    </div>
+
+                    <div class="form-group">
                         <label for="exampleInputEmail1">Registration Number</label>
-                        <input type="text" class="form-control">
+                        <input type="text" class="form-control" type="text" formControlName="registrationNumber">
                     </div>
 
                     <div class="form-group">
                         <label for="exampleInputEmail1">VAT Number</label>
-                        <input type="text" class="form-control">
+                        <input type="text" class="form-control" type="text" formControlName="vatNumber">
                     </div>
 
+                    
 
                     <button class="btn btn-primary" type="submit">Submit</button>
 
