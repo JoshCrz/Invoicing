@@ -15,83 +15,53 @@ namespace Service
 
         InvoicingContext db;
         IMediator _mediator;
-
         public CustomersService(InvoicingContext context, IMediator mediator)
         {
             db = context;
             _mediator = mediator;
         }
 
-        public ServiceResponse<List<CustomerListDTO>> GetAll()
+        public ServiceResponse<GetCustomerListQuery, List<CustomerListDTO>> GetAll()
         {
-            return _mediator
+            var queryResult = _mediator
                     .Send(new GetCustomerListQuery()).Result;
+
+            return ServiceResponse.Success(queryResult);
         }
 
-        public ServiceResponse<GetCustomerDetailsQuery, CustomerDetailsDTO> GetSingle(int customerID)
+        public ServiceResponse<GetCustomerDetailsQuery,CustomerDetailsDTO> GetSingle(int customerID)
         {
             var query = new GetCustomerDetailsQuery() { CustomerID = customerID };
             var cresult = _mediator
                             .Send(query).Result;
 
-            if (cresult == null) 
-                return ServiceResponse.NotFound(query, cresult);
-
-            return ServiceResponse
-                    .Ok(query, cresult);
+            return ServiceResponse.Success(cresult);
+          
         }
 
 
         public ServiceResponse<CreateCustomerCommand, CustomerDetailsDTO> Add(CreateCustomerCommand command)
         {
-            CustomerDetailsDTO cresult = null;
-            try
-            {
-                cresult = _mediator
-                                .Send(command).Result;
-            }
-            catch (FluentValidation.ValidationException e)
-            {
-                return ServiceResponse
-                        .Fail(command, new CustomerDetailsDTO(), e.Errors, e.Message);
-            }
+            var cresult = _mediator
+                        .Send(command).Result;
 
-            return ServiceResponse
-                    .Ok(command, cresult, "success");
+            return ServiceResponse.Success(cresult);
         }
 
         public ServiceResponse<UpdateCustomerCommand,CustomerDetailsDTO> Update(int customerID, UpdateCustomerCommand command)
         {
-            CustomerDetailsDTO cresult = null;
-
-            if (command.CustomerID != customerID)
-                return ServiceResponse
-                        .MismatchIDs(command, new CustomerDetailsDTO() { CustomerID = customerID });
-
-            try
-            {
-                cresult = _mediator
+            var cresult = _mediator
                             .Send(command).Result;
-            }
-            catch (FluentValidation.ValidationException e)
-            {
-                return ServiceResponse
-                            .Fail(command, new CustomerDetailsDTO(), e.Errors, e.Message);
-            }
-            if (customerID != command.CustomerID)
-            {
-                throw new Exception("IDs dont match");
-            }
 
-            return ServiceResponse
-                    .Ok(command, cresult, "success");
+            return ServiceResponse.Success(cresult);
 
         }
 
-        public ServiceResponse<CustomerDetailsDTO> Delete(int customerID)
+        public ServiceResponse<DeleteCustomerCommand, CustomerDetailsDTO> Delete(int customerID)
         {
-            return _mediator
-                    .Send(new DeleteCustomerCommand() { CustomerID = customerID }).Result;
+            var cresult = _mediator
+                            .Send(new DeleteCustomerCommand() { CustomerID = customerID }).Result;
+            return ServiceResponse.Success(cresult);
 
         }
 

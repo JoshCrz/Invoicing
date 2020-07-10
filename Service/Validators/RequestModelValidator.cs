@@ -27,6 +27,8 @@ namespace Service
                             .ToList();
 
             if(errors.Count > 0) {
+
+                return null;
                 throw new ValidationException(errors);
             }
 

@@ -62,14 +62,14 @@ namespace WebAPI.Controllers
 
         // PUT: api/Customer/5
         [HttpPut("{id}")]
-        public ActionResult<ServiceResponse<CustomerDetailsDTO>> Put(int id, [FromBody] UpdateCustomerCommand command)
+        public ActionResult Put(int id, [FromBody] UpdateCustomerCommand command)
         {
             return Ok(_customerService.Update(id, command));
         }
 
         // DELETE: api/ApiWithActions/5
         [HttpDelete("{id}")]
-        public ActionResult<ServiceResponse<CustomerDetailsDTO>> Delete(int id)
+        public ActionResult Delete(int id)
         {
             return Ok(_customerService.Delete(id));
         }

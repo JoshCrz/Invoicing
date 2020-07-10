@@ -13,12 +13,12 @@ using AutoMapper.QueryableExtensions;
 
 namespace Service.Commands
 {
-    public class DeleteCustomerCommand : IServiceRequestWrapper<CustomerDetailsDTO>
+    public class DeleteCustomerCommand : ICqrsRequestWrapper<DeleteCustomerCommand, CustomerDetailsDTO>
     {
         public int CustomerID { get; set; }
     }
 
-    public class DeleteCustomerCommandHandler : IServiceRequestHandlerWrapper<DeleteCustomerCommand, CustomerDetailsDTO>
+    public class DeleteCustomerCommandHandler : ICqrsRequestHandlerWrapper<DeleteCustomerCommand, CustomerDetailsDTO>
     {
 
         InvoicingContext _context;
@@ -29,7 +29,7 @@ namespace Service.Commands
             _mapper = mapper;
         }
 
-        public Task<ServiceResponse<CustomerDetailsDTO>> Handle(DeleteCustomerCommand request, CancellationToken cancellationToken)
+        public Task<CqrsResponse<DeleteCustomerCommand, CustomerDetailsDTO>> Handle(DeleteCustomerCommand request, CancellationToken cancellationToken)
         {
             var entity = _context.Customers
                                     .FirstOrDefault(x => x.CustomerID == request.CustomerID);
@@ -39,7 +39,7 @@ namespace Service.Commands
 
             var mapped = _mapper.Map<CustomerDetailsDTO>(entity);
 
-            return Task.FromResult(ServiceResponse.Ok(mapped));
+            return Task.FromResult(CqrsResponse.QuerySuccess(request, mapped));
 
         }
     }

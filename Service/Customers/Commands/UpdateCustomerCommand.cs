@@ -11,7 +11,7 @@ using FluentValidation;
 
 namespace Service.Commands
 {
-    public class UpdateCustomerCommand : IRequest<CustomerDetailsDTO>
+    public class UpdateCustomerCommand : ICqrsRequestWrapper<UpdateCustomerCommand,CustomerDetailsDTO>
     {
         public int CustomerID { get; set; }
 
@@ -25,7 +25,7 @@ namespace Service.Commands
         public string VatNumber { get; set; }
     }
 
-    public class UpdateCustomerCommandHandler : IRequestHandler<UpdateCustomerCommand, CustomerDetailsDTO>
+    public class UpdateCustomerCommandHandler : ICqrsRequestHandlerWrapper<UpdateCustomerCommand, CustomerDetailsDTO>
     {
         InvoicingContext _context;
         IMapper _mapper;
@@ -34,7 +34,7 @@ namespace Service.Commands
             _context = context;
             _mapper = mapper;
         }
-        public Task<CustomerDetailsDTO> Handle(UpdateCustomerCommand request, CancellationToken cancellationToken)
+        public Task<CqrsResponse<UpdateCustomerCommand, CustomerDetailsDTO>> Handle(UpdateCustomerCommand request, CancellationToken cancellationToken)
         {
             var entity = _mapper.Map<EntityModels.Customers>(request);
 
@@ -43,7 +43,7 @@ namespace Service.Commands
 
             var dto = _mapper.Map<CustomerDetailsDTO>(entity);
 
-            return Task.FromResult(dto);
+            return Task.FromResult(CqrsResponse.QuerySuccess(request, dto));
         }
     }
 
