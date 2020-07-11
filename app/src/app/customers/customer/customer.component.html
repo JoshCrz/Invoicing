@@ -1,5 +1,5 @@
 <div class="container-fluid shadow p-5 my-5">
-    <ng-container *ngIf="customer; else noCustomer">
+    <ng-container *ngIf="customer; else noCustomer">        
         <div class="container">
             <div class="d-flex flex-row align-items-center">
                 <div class="flex-fill">
@@ -43,6 +43,8 @@
         </div>
     </ng-container>
     <ng-template #noCustomer>
-        No customer loaded. This will be a nice error message //todo
+        <div class="w-100 text-center p-3">
+            <app-feedback></app-feedback>    
+        </div>        
     </ng-template>
 </div>

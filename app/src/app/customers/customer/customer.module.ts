@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FeedbackModule } from '../../shared/feedback/feedback.module';
 
 import { CustomerRoutingModule } from './customer-routing.module';
 import { CustomerComponent } from './customer.component';
@@ -9,7 +10,8 @@ import { CustomerComponent } from './customer.component';
   declarations: [CustomerComponent],
   imports: [
     CommonModule,
-    CustomerRoutingModule
+    CustomerRoutingModule,
+    FeedbackModule
   ]
 })
 export class CustomerModule { }

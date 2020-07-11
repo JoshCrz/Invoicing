@@ -5,7 +5,7 @@ import { AddressesModule } from '../../shared/forms/addresses/addresses.module';
 
 import { CreateRoutingModule } from './create-routing.module';
 import { CreateComponent } from './create.component';
-
+import { FeedbackModule } from '../../shared/feedback/feedback.module';
 
 @NgModule({
   declarations: [CreateComponent],
@@ -13,7 +13,8 @@ import { CreateComponent } from './create.component';
     CommonModule,
     CreateRoutingModule,
     ReactiveFormsModule,
-    AddressesModule
+    AddressesModule,
+    FeedbackModule
   ]
 })
 export class CreateModule { }

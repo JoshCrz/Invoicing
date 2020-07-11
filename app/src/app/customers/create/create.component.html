@@ -6,6 +6,7 @@
             </div>            
         </div>
     </div>
+
     <form [formGroup]="customerForm" (ngSubmit)="submit(customerForm)">
         <div class="container my-5">
             <div class="row">
@@ -24,12 +25,11 @@
                 <div class="col-12 col-lg-6">
                      <!--
 
-                    <div class="form-group text-center">
-                        <div class="p-5 border d-inline-block">
-                            <i class="text-muted small">Company Logo</i>
-                        </div>
-                    </div>
-                    
+                        <div class="form-group text-center">
+                            <div class="p-5 border d-inline-block">
+                                <i class="text-muted small">Company Logo</i>
+                            </div>
+                        </div>                    
                    
                         <div class="input-group mb-3">  
                             <div class="custom-file">
@@ -88,6 +88,8 @@
         </div>
     </form>    
 </div>
+
+
 
 <!--
     <app-addresses (updateParent)="childFormEvent($event)" [parentForm]="customerForm" [preFilledData]="data"></app-addresses>
