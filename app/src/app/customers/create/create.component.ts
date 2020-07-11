@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { CustomersService } from '../customers.service';
 
 
@@ -24,13 +24,13 @@ export class CreateComponent implements OnInit {
   ngOnInit(): void {
 
     this.customerForm = new FormGroup({      
-      companyName: new FormControl(),
-      natureOfBusiness: new FormControl(),
-      customerStatusID: new FormControl(),
-      customerTypeID: new FormControl(),
+      companyName: new FormControl('', Validators.required),
+      natureOfBusiness: new FormControl('', Validators.required),
+      customerStatusID: new FormControl(null, Validators.required),
+      customerTypeID: new FormControl(null, Validators.required),
       websiteUrl: new FormControl(),
       registrationNumber: new FormControl(),
-      vatNumber: new FormControl()      
+      vatNumber: new FormControl()
     })
 
   }
