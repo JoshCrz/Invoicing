@@ -33,4 +33,10 @@ export class CustomersService {
     )
   }
 
+  deleteCustomer = (id) => {
+    return this._http.delete(
+      `${environment.apiUrl}customers/` + id
+    )
+  }
+
 }

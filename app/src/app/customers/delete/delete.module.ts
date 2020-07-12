@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FeedbackModule } from '../../shared/feedback/feedback.module';
 
 import { DeleteRoutingModule } from './delete-routing.module';
 import { DeleteComponent } from './delete.component';
@@ -9,7 +10,8 @@ import { DeleteComponent } from './delete.component';
   declarations: [DeleteComponent],
   imports: [
     CommonModule,
-    DeleteRoutingModule
+    DeleteRoutingModule,
+    FeedbackModule
   ]
 })
 export class DeleteModule { }

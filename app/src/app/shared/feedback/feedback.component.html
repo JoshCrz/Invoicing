@@ -1,3 +1,4 @@
-<div class="spinner-border" role="status">
-    <span class="sr-only">Loading...</span>
-  </div>
+<div class="text-center w-100 p-3" [ngClass]="textClass">
+  <i [ngClass]="icon ? icon : 'fas fa-spinner fa-spin'"></i>    
+  <p class="h5" *ngIf="text">{{text}}</p>
+</div> 

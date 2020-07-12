@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { CustomersService } from '../customers.service';
-
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-create',
@@ -13,13 +13,17 @@ export class CreateComponent implements OnInit {
   customerForm: FormGroup;
   addressForm: FormGroup;
   submitted: boolean;
+  feedback: any; //todo interface
 
   data: any = {
     addressLine1: "39",
     addressLine2: "Ironbridge Road"
   }
 
-  constructor(private customersService: CustomersService) { }
+  constructor(
+    private customersService: CustomersService,
+    private router: Router
+    ) { }
 
   ngOnInit(): void {
 
@@ -40,13 +44,28 @@ export class CreateComponent implements OnInit {
     this.submitted = true;
     console.log(form.value)
 
+    this.feedback = {
+      loading: true,
+      textClass: 'text-primary',
+      text: 'Loading'
+    }    
+
+/*
     if(form.valid){
 
       this.customersService.createCustomer(form.value)
         .subscribe((res: any) => {
-          console.log(res);
+          //defensive coding
+          console.log(res)
+          if(res.error){
+
+          } 
+          else if(res && res.data){
+            //route to new customer
+            this.router.navigate(['customers/customer'], { queryParams: {id: res.data.customerID}})
+          }
         })      
-    }
+    }*/
   }
 
 

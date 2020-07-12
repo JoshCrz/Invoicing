@@ -1,1 +1,47 @@
 <p>delete works!</p>
+
+<div class="container-fluid shadow p-5 my-5">
+    <ng-container *ngIf="customer && !feedback; else noCustomer">
+        <div class="container text-center">        
+            <h1 class="h2 m-0 tex">Delete {{customer.companyName}}?</h1>
+            
+            <div class="my-5">
+                <p class="m-0"><i class="fas fa-exclamation-triangle text-danger"></i> This will delete any invoices related to this customer <i class="fas fa-exclamation-triangle text-danger"></i></p>
+            </div>
+            <div class="my-5">
+                <button class="btn btn-primary mx-2" [routerLink]="['../../customer']" [queryParams]="{id: customer.customerID}">
+                    <i class="fas fa-undo"></i>
+                    Cancel 
+                </button>
+                <button class="btn btn-danger" (click)="delete(customer)"> 
+                    <i class="fas fa-user-times"></i>
+                    Delete
+                </button>
+            </div>
+        </div>
+    </ng-container>
+    <ng-template #noCustomer>
+        <ng-container *ngIf="customerDeleted; else loading">
+            
+            <app-feedback *ngIf="feedback" [text]="feedback.text" [textClass]="feedback.textClass" [loading]="feedback.loading" [icon]="feedback.icon"></app-feedback>   
+            <div class="text-center">
+                <button class="btn btn-primary mx-2" [routerLink]="['/customers/list']">
+                    <i class="fas fa-arrow-left"></i>
+                    Back to customer list
+                </button>
+            </div>            
+            <!--
+            <button class="btn btn-danger"> 
+                <i class="fas fa-undo"></i>
+                Undo
+            </button>
+            -->
+
+        </ng-container>
+        <ng-template #loading>
+            <app-feedback *ngIf="feedback" [text]="feedback.text" [textClass]="feedback.textClass" [loading]="feedback.loading"></app-feedback>        
+        </ng-template>
+        
+    </ng-template>
+   
+</div>
