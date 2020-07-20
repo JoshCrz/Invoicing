@@ -1,0 +1,11 @@
+.panel-hover {
+    transition: padding 1s, margin 1s;
+}
+
+/*will refactor these*/
+.panel-hover:hover{    
+    padding: 2rem !important;    
+    margin-top: 1rem !important;
+    margin-bottom: 1rem !important;
+    cursor: pointer;
+}
