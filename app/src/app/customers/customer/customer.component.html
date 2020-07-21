@@ -16,10 +16,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-12 col-lg-6">
-                    <p>{{customer.natureOfBusiness}}</p>                    
-                    <div class="my-2">
-                        <a class="btn btn-primary text-white" href="{{customer.websiteUrl}}" target="_blank">Visit customer website</a>
-                    </div>
+                    <p class="m-0">{{customer.natureOfBusiness}}</p>                                        
                 </div>                                
             </div>
             <div class="row">
@@ -43,9 +40,12 @@
         </div>
 
         <div class="container">
-            <div class="d-flex flex-row">
+            <div class="d-flex flex-row align-items-center">
+                <div class="mr-auto">
+                    <a class="btn btn-sm btn-primary text-white" href="{{customer.websiteUrl}}" target="_blank">Visit customer website</a>
+                </div>
                 <div class="ml-auto">
-                    <button class="btn btn-outline-warning mx-2" [routerLink]="['../../edit']" [queryParams]="{id: customer.customerID}">
+                    <button class="btn btn-outline-info mx-2" [routerLink]="['../../edit']" [queryParams]="{id: customer.customerID}">
                         <i class="fas fa-user-edit"></i>
                         Edit
                     </button>

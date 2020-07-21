@@ -1,6 +1,6 @@
 <div class="container border">
     <div class="d-flex flex-row">
-        <div class="flex-fill shado-sm p-4 my-2 bg-success text-white panel-hover" [routerLink]="['../../create']">
+        <div class="flex-fill p-4 my-2 bg-success text-white panel-hover" [routerLink]="['../../create']">
             <div class="d-flex flex-row align-items-center text-center">
                 <div class="flex-fill">
                     <h5 class="m-0">
@@ -13,7 +13,7 @@
        
     <ng-container *ngIf="customers; else loading">
         <div class="d-flex flex-row" *ngFor="let customer of customers">
-            <div class="flex-fill shadow-sm p-4 my-2 panel-hover bg-light" [routerLink]="['../../customer']" [queryParams]="{id: customer.customerID}">
+            <div class="flex-fill p-4 my-2 panel-hover bg-light" [routerLink]="['../../customer']" [queryParams]="{id: customer.customerID}">
                 <div class="d-flex flex-row align-items-center text-center">
                     <div class="flex-fill">
                         <h5>

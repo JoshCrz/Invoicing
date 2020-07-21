@@ -42,7 +42,8 @@ export class CreateComponent implements OnInit {
         this.customersService.getCustomer(res.id)
           .subscribe((customer: any) => {
             if(customer && customer.data){
-              this.customerForm = this.customersService.generateCustomerForm(customer.data);              
+              this.customerForm = this.customersService.generateCustomerForm(customer.data);
+              this.customer = customer.data;
               delete this.feedback;
             } else {
               //feedback error 
