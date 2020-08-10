@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FluentValidation.Results;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -7,30 +8,45 @@ namespace Service
     public static class CqrsResponse
     {
 
-        public static CqrsResponse<TQueryRequest, TQueryResponse> QuerySuccess<TQueryRequest, TQueryResponse>(TQueryRequest query, TQueryResponse response)
+        public static CqrsResponse<TQueryResponse> QuerySuccess<TQueryResponse>(TQueryResponse response)
         {
-            return new CqrsResponse<TQueryRequest, TQueryResponse>(query, response);
+            return new CqrsResponse<TQueryResponse>(response);
         }
 
 
-        public static CqrsResponse<TQueryRequest, TQueryResponse> QueryFail<TQueryRequest, TQueryResponse>(TQueryRequest query, TQueryResponse response, IEnumerable<FluentValidation.Results.ValidationFailure> validationErrors)
+        public static CqrsResponse<TQueryResponse> QueryFail<TQueryResponse>(List<ValidationFailure> validationErrors)
         {
-            return new CqrsResponse<TQueryRequest, TQueryResponse>(query, response, validationErrors);
+            return new CqrsResponse<TQueryResponse>(validationErrors);
+        }
+
+        public static CqrsResponse<TQueryResponse> NotFound<TQueryResponse>(string message = "Not Found")
+        {
+            return new CqrsResponse<TQueryResponse>(message);
         }
     }
 
 
-    public class CqrsResponse<TIn, TOut>
+    public class CqrsResponse<TResponse>
     {
-        public CqrsResponse(TIn query, TOut response, IEnumerable<FluentValidation.Results.ValidationFailure> validationErrors = null)
+        public CqrsResponse(TResponse response)
         {
-            DataIn = query;
-            DataOut = response;
+            Response = response;
+        }
+
+        public CqrsResponse(List<ValidationFailure> validationErrors)
+        {
+            Response = default;
             ValidationErrors = validationErrors;
         }
-        public TIn DataIn { get; set; }
-        public TOut DataOut { get; set; }
-        IEnumerable<FluentValidation.Results.ValidationFailure> ValidationErrors { get; set; }
+
+        public CqrsResponse(string message)
+        {
+            ValidationErrors = new List<ValidationFailure>();
+            ValidationErrors.Add(new ValidationFailure("", message));
+        }
+
+        public TResponse Response { get; set; }
+        public IList<ValidationFailure> ValidationErrors { get; set; }
 
     }
 }

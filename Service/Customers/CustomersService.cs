@@ -23,10 +23,11 @@ namespace Service
 
         public ServiceResponse<GetCustomerListQuery, List<CustomerListDTO>> GetAll()
         {
+            var query = new GetCustomerListQuery();
             var queryResult = _mediator
-                    .Send(new GetCustomerListQuery()).Result;
+                    .Send(query).Result;
 
-            return ServiceResponse.Success(queryResult);
+            return ServiceResponse.Success(query, queryResult);
         }
 
         public ServiceResponse<GetCustomerDetailsQuery,CustomerDetailsDTO> GetSingle(int customerID)
@@ -35,7 +36,7 @@ namespace Service
             var cresult = _mediator
                             .Send(query).Result;
 
-            return ServiceResponse.Success(cresult);
+            return ServiceResponse.Success(query, cresult);
           
         }
 
@@ -45,7 +46,7 @@ namespace Service
             var cresult = _mediator
                         .Send(command).Result;
 
-            return ServiceResponse.Success(cresult);
+            return ServiceResponse.Success(command, cresult);
         }
 
         public ServiceResponse<UpdateCustomerCommand,CustomerDetailsDTO> Update(int customerID, UpdateCustomerCommand command)
@@ -53,15 +54,16 @@ namespace Service
             var cresult = _mediator
                             .Send(command).Result;
 
-            return ServiceResponse.Success(cresult);
+            return ServiceResponse.Success(command, cresult);
 
         }
 
         public ServiceResponse<DeleteCustomerCommand, CustomerDetailsDTO> Delete(int customerID)
         {
+            var command = new DeleteCustomerCommand() { CustomerID = customerID };
             var cresult = _mediator
-                            .Send(new DeleteCustomerCommand() { CustomerID = customerID }).Result;
-            return ServiceResponse.Success(cresult);
+                            .Send(command).Result;
+            return ServiceResponse.Success(command, cresult);
 
         }
 

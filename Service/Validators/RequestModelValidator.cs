@@ -9,7 +9,7 @@ using System.Linq;
 
 namespace Service
 {
-    public class RequestModelValidator<TIn, TOut> : IPipelineBehavior<TIn, TOut>
+    public class RequestModelValidator<TIn, TOut> : IPipelineBehavior<TIn, TOut> where TOut : class
     {
         private readonly IEnumerable<IValidator<TIn>> _validators;
         public RequestModelValidator(IEnumerable<IValidator<TIn>> validators)
@@ -19,20 +19,29 @@ namespace Service
         public Task<TOut> Handle(TIn request, CancellationToken cancellationToken, RequestHandlerDelegate<TOut> next)
         {
             var context = new ValidationContext<TIn>(request);
-
+            
             var errors = _validators
                             .Select(v => v.Validate(context))
                             .SelectMany(r => r.Errors)
                             .Where(f => f != null)
                             .ToList();
 
-            if(errors.Count > 0) {
+            if (errors.Count > 0) {
+                // Comment in the below if you want ServiceExceptionHandle to deal with the error.
+                //throw new ValidationException(errors);
 
-                return null;
-                throw new ValidationException(errors);
+                // create new instance of TOut (CqrsResponse<>) and pass error list to the constructor.
+                object[] ctorParams = new object[] { errors };
+                var failedValidationResponse =
+                    Activator.CreateInstance(typeof(TOut), ctorParams) as TOut;
+
+                return Task.FromResult(failedValidationResponse);
+            } else
+            {
+                return next();
             }
 
-            return next();
+            
         }
     }
 }

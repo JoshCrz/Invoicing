@@ -8,21 +8,40 @@ namespace Service
 
     public static class ServiceResponse
     {
-        public static ServiceResponse<TIn, TOut> Success<TIn, TOut>(CqrsResponse<TIn, TOut> data)
+        public static ServiceResponse<TIn, TResponse> Success<TIn, TResponse>(TIn command, CqrsResponse<TResponse> data)
         {
-            return new ServiceResponse<TIn, TOut>(data);
+            return new ServiceResponse<TIn, TResponse>(command, data);
         }
+
+        public static ServiceErrorResponse InternalServerError(string message, int statusCode)
+        {
+            return new ServiceErrorResponse(message, statusCode);
+        }
+    }
+
+    public class ServiceResponse<TIn, TResponse>
+    {
+        public ServiceResponse(TIn command, CqrsResponse<TResponse> cqrsResponse)
+        {
+            Data = cqrsResponse.Response;
+            Errors = cqrsResponse.ValidationErrors;
+            Command = command;
+        }
+        public TIn Command { get; set; }
+        public TResponse Data { get; set; }
+        public IList<ValidationFailure> Errors { get; set; }
 
     }
 
-    public class ServiceResponse<TIn, TOut>
+    public class ServiceErrorResponse
     {
-        public ServiceResponse(CqrsResponse<TIn, TOut> cqrsResponse)
+        public ServiceErrorResponse(string message, int statusCode)
         {
-            Data = cqrsResponse.DataOut;
+            Message = message;
+            StatusCode = statusCode;
         }
-        public TOut Data { get; set; }
-
+        public string Message { get; set; }
+        public int StatusCode { get; set; }
     }
 
    //public static class ServiceResponse

@@ -11,7 +11,7 @@ using FluentValidation;
 
 namespace Service.Commands
 {
-    public class CreateCustomerCommand : ICqrsRequestWrapper<CreateCustomerCommand, CustomerDetailsDTO>
+    public class CreateCustomerCommand : ICqrsRequestWrapper<CustomerDetailsDTO>
     {
         public string CompanyName { get; set; }
         public string NatureOfBusiness { get; set; }
@@ -32,7 +32,7 @@ namespace Service.Commands
             _context = context;
             _mapper = mapper;
         }
-        public Task<CqrsResponse<CreateCustomerCommand, CustomerDetailsDTO>> Handle(CreateCustomerCommand request, CancellationToken cancellationToken)
+        public Task<CqrsResponse<CustomerDetailsDTO>> Handle(CreateCustomerCommand request, CancellationToken cancellationToken)
         {
             var entity = _mapper.Map<EntityModels.Customers>(request);
 
@@ -41,7 +41,7 @@ namespace Service.Commands
 
             var dto = _mapper.Map<CustomerDetailsDTO>(entity);
 
-            return Task.FromResult(CqrsResponse.QuerySuccess(request, dto));
+            return Task.FromResult(CqrsResponse.QuerySuccess(dto));
         }
     }
 
@@ -50,6 +50,7 @@ namespace Service.Commands
         public CreateCustomerCommandValidator()
         {
             RuleFor(x => x.CompanyName).NotEmpty();
+            RuleFor(x => x.NatureOfBusiness).NotEmpty();
         }
     }
 }

@@ -9,11 +9,11 @@ using Repository;
 using System.Linq;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
-
+using FluentValidation;
 
 namespace Service.Commands
 {
-    public class DeleteCustomerCommand : ICqrsRequestWrapper<DeleteCustomerCommand, CustomerDetailsDTO>
+    public class DeleteCustomerCommand : ICqrsRequestWrapper<CustomerDetailsDTO>
     {
         public int CustomerID { get; set; }
     }
@@ -29,17 +29,29 @@ namespace Service.Commands
             _mapper = mapper;
         }
 
-        public Task<CqrsResponse<DeleteCustomerCommand, CustomerDetailsDTO>> Handle(DeleteCustomerCommand request, CancellationToken cancellationToken)
+        public Task<CqrsResponse<CustomerDetailsDTO>> Handle(DeleteCustomerCommand request, CancellationToken cancellationToken)
         {
             var entity = _context.Customers
                                     .FirstOrDefault(x => x.CustomerID == request.CustomerID);
-          
+
+            if (entity == null)
+                return Task.FromResult(CqrsResponse.NotFound<CustomerDetailsDTO>());
+
             _context.Customers.Remove(entity);
             _context.SaveChanges();
 
             var mapped = _mapper.Map<CustomerDetailsDTO>(entity);
 
-            return Task.FromResult(CqrsResponse.QuerySuccess(request, mapped));
+            return Task.FromResult(CqrsResponse.QuerySuccess(mapped));
+
+        }
+    }
+
+    public class DeleteCustomerCommandValidator : AbstractValidator<DeleteCustomerCommand>
+    {
+        public DeleteCustomerCommandValidator()
+        {
+            RuleFor(x => x.CustomerID).NotEmpty();
 
         }
     }

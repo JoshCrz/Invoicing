@@ -7,11 +7,11 @@ using MediatR;
 
 namespace Service
 {
-    public interface ICqrsRequestWrapper<TIn, TOut> : IRequest<CqrsResponse<TIn, TOut>>
+    public interface ICqrsRequestWrapper<TResult> : IRequest<CqrsResponse<TResult>>
     {
     }
 
-    public interface ICqrsRequestHandlerWrapper<TIn, TOut> : IRequestHandler<TIn, CqrsResponse<TIn, TOut>> where TIn: ICqrsRequestWrapper<TIn, TOut>
+    public interface ICqrsRequestHandlerWrapper<TRequest, TResult> : IRequestHandler<TRequest, CqrsResponse<TResult>> where TRequest : ICqrsRequestWrapper<TResult>
     {
     }
 

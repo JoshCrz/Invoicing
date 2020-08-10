@@ -14,7 +14,7 @@ using FluentValidation;
 
 namespace Service.Queries
 {
-    public class GetCustomerDetailsQuery : ICqrsRequestWrapper<GetCustomerDetailsQuery, CustomerDetailsDTO>
+    public class GetCustomerDetailsQuery : ICqrsRequestWrapper<CustomerDetailsDTO>
     {
        public int CustomerID { get; set; }
 
@@ -31,16 +31,19 @@ namespace Service.Queries
             this._mapper = mapper;
         }
 
-        public Task<CqrsResponse<GetCustomerDetailsQuery, CustomerDetailsDTO>> Handle(GetCustomerDetailsQuery request, CancellationToken cancellationToken)
+        public Task<CqrsResponse<CustomerDetailsDTO>> Handle(GetCustomerDetailsQuery request, CancellationToken cancellationToken)
         {
             var item = _context.Customers
                                 .Include(x=> x.CustomerStatus)
                                 .Include(x=> x.CustomerType)
                                 .FirstOrDefault(x => x.CustomerID == request.CustomerID);
 
+            if (item == null)
+                return Task.FromResult(CqrsResponse.NotFound<CustomerDetailsDTO>());
+
             var mapped = _mapper.Map<CustomerDetailsDTO>(item);
 
-            return Task.FromResult(CqrsResponse.QuerySuccess(request, mapped));
+            return Task.FromResult(CqrsResponse.QuerySuccess(mapped));
         }
     }
 
