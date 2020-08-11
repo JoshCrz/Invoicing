@@ -60,6 +60,7 @@ namespace WebAPI
             
             // extension: inject services
             services.AddServiceInjections();
+            services.AddExceptionHandler();
 
             // mediator
             services.AddMediatR(typeof(CustomersService).Assembly);
@@ -82,8 +83,8 @@ namespace WebAPI
             {
                 app.UseDeveloperExceptionPage();
             }
-
-            app.ConfigureApiExceptionHandler();
+            //app.ConfigureApiExceptionHandler();
+            app.AddExceptionMiddleware();
 
             app.UseRouting();
 

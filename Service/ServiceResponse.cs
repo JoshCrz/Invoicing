@@ -13,10 +13,10 @@ namespace Service
             return new ServiceResponse<TIn, TResponse>(command, data);
         }
 
-        public static ServiceErrorResponse InternalServerError(string message, int statusCode)
-        {
-            return new ServiceErrorResponse(message, statusCode);
-        }
+        //public static ServiceErrorResponse InternalServerError(string message, int statusCode)
+        //{
+        //    return new ServiceErrorResponse(message, statusCode);
+        //}
     }
 
     public class ServiceResponse<TIn, TResponse>
@@ -24,25 +24,23 @@ namespace Service
         public ServiceResponse(TIn command, CqrsResponse<TResponse> cqrsResponse)
         {
             Data = cqrsResponse.Response;
-            Errors = cqrsResponse.ValidationErrors;
             Command = command;
         }
         public TIn Command { get; set; }
         public TResponse Data { get; set; }
-        public IList<ValidationFailure> Errors { get; set; }
 
     }
 
-    public class ServiceErrorResponse
-    {
-        public ServiceErrorResponse(string message, int statusCode)
-        {
-            Message = message;
-            StatusCode = statusCode;
-        }
-        public string Message { get; set; }
-        public int StatusCode { get; set; }
-    }
+    //public class ServiceErrorResponse
+    //{
+    //    public ServiceErrorResponse(string message, int statusCode)
+    //    {
+    //        Message = message;
+    //        StatusCode = statusCode;
+    //    }
+    //    public string Message { get; set; }
+    //    public int StatusCode { get; set; }
+    //}
 
    //public static class ServiceResponse
    // {

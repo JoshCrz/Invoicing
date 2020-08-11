@@ -39,7 +39,7 @@ namespace Service.Queries
                                 .FirstOrDefault(x => x.CustomerID == request.CustomerID);
 
             if (item == null)
-                return Task.FromResult(CqrsResponse.NotFound<CustomerDetailsDTO>());
+                throw ServiceExceptions.CqrsNotFountException();
 
             var mapped = _mapper.Map<CustomerDetailsDTO>(item);
 

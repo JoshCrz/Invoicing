@@ -35,7 +35,7 @@ namespace Service.Commands
                                     .FirstOrDefault(x => x.CustomerID == request.CustomerID);
 
             if (entity == null)
-                return Task.FromResult(CqrsResponse.NotFound<CustomerDetailsDTO>());
+                throw ServiceExceptions.CqrsNotFountException();
 
             _context.Customers.Remove(entity);
             _context.SaveChanges();

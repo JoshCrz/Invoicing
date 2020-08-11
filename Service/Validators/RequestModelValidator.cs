@@ -27,15 +27,15 @@ namespace Service
                             .ToList();
 
             if (errors.Count > 0) {
-                // Comment in the below if you want ServiceExceptionHandle to deal with the error.
-                //throw new ValidationException(errors);
+                // throw validation exception
+                throw ServiceExceptions.CqrsValidationException(errors);
 
                 // create new instance of TOut (CqrsResponse<>) and pass error list to the constructor.
-                object[] ctorParams = new object[] { errors };
-                var failedValidationResponse =
-                    Activator.CreateInstance(typeof(TOut), ctorParams) as TOut;
+                //object[] ctorParams = new object[] { errors };
+                //var failedValidationResponse =
+                //    Activator.CreateInstance(typeof(TOut), ctorParams) as TOut;
 
-                return Task.FromResult(failedValidationResponse);
+                //return Task.FromResult(failedValidationResponse);
             } else
             {
                 return next();
