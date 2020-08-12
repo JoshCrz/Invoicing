@@ -11,10 +11,12 @@ export class FeedbackComponent implements OnInit {
   @Input() text: string;
   @Input() icon: string;
   @Input() loading: boolean;
+  @Input() desc: string;
 
   constructor() { }
 
   ngOnInit(): void {
+
   }
 
 }

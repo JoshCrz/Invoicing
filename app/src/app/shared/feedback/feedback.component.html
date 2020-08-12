@@ -1,4 +1,5 @@
 <div class="text-center w-100 p-3" [ngClass]="textClass">
   <i [ngClass]="icon ? icon : 'fas fa-spinner fa-spin'"></i>    
   <p class="h5" *ngIf="text">{{text}}</p>
+  <p *ngIf="desc">{{desc}}</p>
 </div> 
