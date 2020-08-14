@@ -16,6 +16,10 @@ namespace Service.Queries
 {
     public class GetCustomerDetailsQuery : ICqrsRequestWrapper<CustomerDetailsDTO>
     {
+        public GetCustomerDetailsQuery(int customerID)
+        {
+            CustomerID = customerID;
+        }
        public int CustomerID { get; set; }
 
 
@@ -36,6 +40,7 @@ namespace Service.Queries
             var item = _context.Customers
                                 .Include(x=> x.CustomerStatus)
                                 .Include(x=> x.CustomerType)
+                                .Include(x=> x.CustomerAddresses).ThenInclude(xx=> xx.Address)
                                 .FirstOrDefault(x => x.CustomerID == request.CustomerID);
 
             if (item == null)

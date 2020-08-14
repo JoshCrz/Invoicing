@@ -10,7 +10,7 @@ namespace EntityModels
         {
             Contacts = new HashSet<Contacts>();
             Invoices = new HashSet<Invoices>();
-            CustomersAddresses = new HashSet<CustomersAddresses>();
+            CustomerAddresses = new HashSet<CustomersAddresses>();
         }
 
         public int CustomerID { get; set; }
@@ -35,7 +35,7 @@ namespace EntityModels
         public virtual CustomerTypes CustomerType { get; set; }
 
         // many to many relation between customers and addresses 
-        public virtual ICollection<CustomersAddresses> CustomersAddresses { get; set; }
+        public virtual ICollection<CustomersAddresses> CustomerAddresses { get; set; }
     }
 
     public class CustomersAddresses

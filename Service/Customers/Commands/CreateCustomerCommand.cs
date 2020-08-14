@@ -8,6 +8,7 @@ using Repository;
 using Service.ViewModels;
 using AutoMapper;
 using FluentValidation;
+using EntityModels;
 
 namespace Service.Commands
 {
@@ -21,6 +22,8 @@ namespace Service.Commands
         public string WebsiteUrl { get; set; }
         public string RegistrationNumber { get; set; }
         public string VatNumber { get; set; }
+
+        public AddressDetailsDTO CustomerAddress { get; set; }
     }
 
     public class CreateCustomerCommandHandler : ICqrsRequestHandlerWrapper<CreateCustomerCommand, CustomerDetailsDTO>
@@ -35,6 +38,19 @@ namespace Service.Commands
         public Task<CqrsResponse<CustomerDetailsDTO>> Handle(CreateCustomerCommand request, CancellationToken cancellationToken)
         {
             var entity = _mapper.Map<EntityModels.Customers>(request);
+
+            // add address 
+            if(request.CustomerAddress != null)
+            {
+                var address = new Addresses();
+                _mapper.Map(request.CustomerAddress, address);
+
+                entity.CustomerAddresses.Add(new CustomersAddresses()
+                {
+                    Address = address,
+                    Customer = entity
+                });
+            }
 
             _context.Customers.Add(entity);
             _context.SaveChanges();

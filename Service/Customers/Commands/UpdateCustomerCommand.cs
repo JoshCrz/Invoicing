@@ -8,6 +8,8 @@ using Repository;
 using Service.ViewModels;
 using AutoMapper;
 using FluentValidation;
+using System.Linq;
+using Microsoft.EntityFrameworkCore;
 
 namespace Service.Commands
 {
@@ -23,6 +25,8 @@ namespace Service.Commands
         public string WebsiteUrl { get; set; }
         public string RegistrationNumber { get; set; }
         public string VatNumber { get; set; }
+
+        public AddressDetailsDTO CustomerAddress { get; set; }
     }
 
     public class UpdateCustomerCommandHandler : ICqrsRequestHandlerWrapper<UpdateCustomerCommand, CustomerDetailsDTO>
@@ -36,12 +40,34 @@ namespace Service.Commands
         }
         public Task<CqrsResponse<CustomerDetailsDTO>> Handle(UpdateCustomerCommand request, CancellationToken cancellationToken)
         {
-            var entity = _mapper.Map<EntityModels.Customers>(request);
+            
+            var customer = _context.Customers
+                                    .Include(x=> x.CustomerAddresses)
+                                    .FirstOrDefault(x => x.CustomerID == request.CustomerID);
 
-            _context.Customers.Update(entity);
+
+            //var address = customer.CustomersAddresses
+            //                         .FirstOrDefault(x=> x.AddressID == request.CustomerAddress.AddressID)?.Address;
+
+            //if(address == null)
+            //{
+
+            //    _mapper.Map(request.CustomerAddress, address);
+            //    customer.CustomersAddresses.Add(new EntityModels.CustomersAddresses()
+            //    {
+            //        Address = address,
+            //        Customer = customer
+            //    });
+            //} else
+            //{
+            //    _mapper.Map(request.CustomerAddress, address);
+            //}
+
+            _mapper.Map(request, customer);
+            _context.Customers.Update(customer);
             _context.SaveChanges();
 
-            var dto = _mapper.Map<CustomerDetailsDTO>(entity);
+            var dto = _mapper.Map<CustomerDetailsDTO>(customer);
 
             return Task.FromResult(CqrsResponse.QuerySuccess(dto));
         }

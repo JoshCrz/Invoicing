@@ -17,6 +17,7 @@ namespace Repository.ModelConfiguration
         {
             builder
                 .HasKey(m => m.AddressID);
+          
             builder
                 .Property(m => m.AddressLine1)
                 .HasMaxLength(50)

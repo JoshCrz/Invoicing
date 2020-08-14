@@ -70,9 +70,13 @@ namespace Repository.ModelConfiguration
             // relation between customer and customeraddress bridge table
             builder
                 .HasOne(m => m.Customer)
-                .WithMany(m => m.CustomersAddresses)
+                .WithMany(m => m.CustomerAddresses)
                 .HasForeignKey(m => m.CustomerID);
 
+            builder
+                .HasOne(m => m.Address)
+                .WithMany(m => m.CustomersAddresses)
+                .HasForeignKey(m => m.AddressID);
         }
     }
 }

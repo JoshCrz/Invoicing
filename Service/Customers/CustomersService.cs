@@ -10,7 +10,7 @@ using Service.Commands;
 
 namespace Service
 {
-    public class CustomersService // add generic crud interface ? 
+    public class CustomersService : ICustomerService
     {
 
         InvoicingContext db;
@@ -20,36 +20,29 @@ namespace Service
             db = context;
             _mediator = mediator;
         }
-
-        public ServiceResponse<GetCustomerListQuery, List<CustomerListDTO>> GetAll()
+        public IServiceResponse<GetCustomerListQuery, List<CustomerListDTO>> GetAll(GetCustomerListQuery query)
         {
-            var query = new GetCustomerListQuery();
             var queryResult = _mediator
-                    .Send(query).Result;
+                                .Send(query).Result;
 
             return ServiceResponse.Success(query, queryResult);
         }
-
-        public ServiceResponse<GetCustomerDetailsQuery,CustomerDetailsDTO> GetSingle(int customerID)
+        public IServiceResponse<GetCustomerDetailsQuery,CustomerDetailsDTO> GetSingle(GetCustomerDetailsQuery query)
         {
-            var query = new GetCustomerDetailsQuery() { CustomerID = customerID };
             var cresult = _mediator
                             .Send(query).Result;
 
             return ServiceResponse.Success(query, cresult);
           
         }
-
-
-        public ServiceResponse<CreateCustomerCommand, CustomerDetailsDTO> Add(CreateCustomerCommand command)
+        public IServiceResponse<CreateCustomerCommand, CustomerDetailsDTO> CreateCustomer(CreateCustomerCommand command)
         {
             var cresult = _mediator
-                        .Send(command).Result;
+                            .Send(command).Result;
 
             return ServiceResponse.Success(command, cresult);
         }
-
-        public ServiceResponse<UpdateCustomerCommand,CustomerDetailsDTO> Update(int customerID, UpdateCustomerCommand command)
+        public IServiceResponse<UpdateCustomerCommand,CustomerDetailsDTO> UpdateCustomer(int customerID, UpdateCustomerCommand command)
         {
             var cresult = _mediator
                             .Send(command).Result;
@@ -57,15 +50,29 @@ namespace Service
             return ServiceResponse.Success(command, cresult);
 
         }
-
-        public ServiceResponse<DeleteCustomerCommand, CustomerDetailsDTO> Delete(int customerID)
+        public IServiceResponse<DeleteCustomerCommand, CustomerDetailsDTO> DeleteCustomer(int customerID, DeleteCustomerCommand command)
         {
-            var command = new DeleteCustomerCommand() { CustomerID = customerID };
             var cresult = _mediator
                             .Send(command).Result;
+
             return ServiceResponse.Success(command, cresult);
 
         }
+        public IServiceResponse<AddCustomerAddressCommand, AddressDetailsDTO> AddAddress(int customerID, AddCustomerAddressCommand command)
+        {
+            var cresult = _mediator
+                            .Send(command).Result;
+
+            return ServiceResponse.Success(command, cresult);
+        }
+        public IServiceResponse<RemoveCustomerAddressCommand, AddressDetailsDTO> RemoveAddress(int customerID, RemoveCustomerAddressCommand command)
+        {
+            var cresult = _mediator
+                            .Send(command).Result;
+
+            return ServiceResponse.Success(command, cresult);
+        }
+
 
         public void DeleteAndCreateDatabase()
         {

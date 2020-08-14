@@ -39,7 +39,7 @@ namespace WebAPI
         {
 
             services.AddControllers()
-                .AddNewtonsoftJson(config=> 
+                .AddNewtonsoftJson(config =>
                     config.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore // for nested entities ## move it so separate extension class ?
                     );
 
@@ -57,7 +57,7 @@ namespace WebAPI
 
             // extension: add database context
             services.AddDatabaseConfiguration(Configuration);
-            
+
             // extension: inject services
             services.AddServiceInjections();
             services.AddExceptionHandler();
@@ -70,6 +70,19 @@ namespace WebAPI
             // automapper
             services.AddAutoMapper(typeof(AutoMapperConfiguration));
 
+            // swagger
+            services.AddSwaggerGen(c => {
+                c.OrderActionsBy(x => x.GroupName);
+                c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo()
+                {
+                    Title = "Invoicing System API",
+                    Version = "v1",
+                    Contact = new Microsoft.OpenApi.Models.OpenApiContact()
+                    {
+                        Name = "Peter"
+                    }
+                });
+            });
 
         }
 
@@ -96,7 +109,16 @@ namespace WebAPI
             });
 
 
+            // Enable middleware to serve generated Swagger as a JSON endpoint.
+            app.UseSwagger();
 
+            // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.),
+            // specifying the Swagger JSON endpoint.
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Web API V1");
+                
+            });
 
             
         }

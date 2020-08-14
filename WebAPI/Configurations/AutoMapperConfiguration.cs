@@ -22,7 +22,8 @@ namespace WebAPI.Configurations
             // customer to customer details dto
             CreateMap<Customers, CustomerDetailsDTO>()
                 .ForMember(x => x.CompanyStatus, x => x.MapFrom(s => s.CustomerStatus.CustomerStatus))
-                .ForMember(x => x.CompanyType, x => x.MapFrom(s => s.CustomerType.CustomerType));
+                .ForMember(x => x.CompanyType, x => x.MapFrom(s => s.CustomerType.CustomerType))
+                .ForMember(x=> x.CustomerAddresses, x=> x.MapFrom(s=> s.CustomerAddresses.Select(a=> a.Address).ToList()));
 
 
             // customer to customer list dto
@@ -30,10 +31,15 @@ namespace WebAPI.Configurations
                 .ForMember(x => x.CompanyStatus, x => x.MapFrom(s => s.CustomerStatus.CustomerStatus))
                 .ForMember(x => x.CompanyType, x => x.MapFrom(s => s.CustomerType.CustomerType));
 
+            // address to address details dto
+            CreateMap<Addresses, AddressDetailsDTO>();
+            CreateMap<AddressDetailsDTO, Addresses>();
 
             // commands and queries
             CreateMap<CreateCustomerCommand, Customers>();
             CreateMap<UpdateCustomerCommand, Customers>();
+
+            
         }
     }
 }
