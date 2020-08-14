@@ -25,6 +25,14 @@ export class ListComponent implements OnInit {
       .subscribe((res: any) => {
         this.customers = res.data;
         delete this.feedback;
+      }, error => {
+        this.feedback = {  
+          loading: false,       
+          textClass: 'text-danger',
+          text: 'Error',
+          icon: 'fas fa-exclamation-triangle',
+          desc: (error.error && error.error.message) ? error.error.message : ''
+        }
       })
   }
 
