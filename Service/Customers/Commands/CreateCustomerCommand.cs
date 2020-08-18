@@ -7,7 +7,6 @@ using MediatR;
 using Repository;
 using Service.ViewModels;
 using AutoMapper;
-using FluentValidation;
 using EntityModels;
 
 namespace Service.Commands
@@ -37,36 +36,27 @@ namespace Service.Commands
         }
         public Task<CqrsResponse<CustomerDetailsDTO>> Handle(CreateCustomerCommand request, CancellationToken cancellationToken)
         {
-            var entity = _mapper.Map<EntityModels.Customers>(request);
+            var newcustomer = _mapper.Map<EntityModels.Customers>(request);
 
-            // add address 
+            // add address if passed
             if(request.CustomerAddress != null)
             {
                 var address = new Addresses();
                 _mapper.Map(request.CustomerAddress, address);
 
-                entity.CustomerAddresses.Add(new CustomersAddresses()
+                newcustomer.CustomerAddresses.Add(new CustomersAddresses()
                 {
                     Address = address,
-                    Customer = entity
+                    Customer = newcustomer
                 });
             }
 
-            _context.Customers.Add(entity);
+            _context.Customers.Add(newcustomer);
             _context.SaveChanges();
 
-            var dto = _mapper.Map<CustomerDetailsDTO>(entity);
+            var dto = _mapper.Map<CustomerDetailsDTO>(newcustomer);
 
             return Task.FromResult(CqrsResponse.QuerySuccess(dto));
-        }
-    }
-
-    public class CreateCustomerCommandValidator : AbstractValidator<CreateCustomerCommand>
-    {
-        public CreateCustomerCommandValidator()
-        {
-            RuleFor(x => x.CompanyName).NotEmpty();
-            RuleFor(x => x.NatureOfBusiness).NotEmpty();
         }
     }
 }

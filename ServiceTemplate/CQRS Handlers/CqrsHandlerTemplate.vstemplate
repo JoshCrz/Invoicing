@@ -1,0 +1,25 @@
+<VSTemplate Version="3.0.0" xmlns="http://schemas.microsoft.com/developer/vstemplate/2005" Type="Item">
+  <TemplateData>
+    <DefaultName>CqrsHandlerTemplate.cs</DefaultName>
+    <Name>CQRS Commands and Queries template</Name>
+    <Description>Template for CQRS Handlers - creates Commands and Queries folders with related classes for crud operation</Description>
+    <ProjectType>CSharp</ProjectType>
+    <SortOrder>10</SortOrder>
+    <Icon>__TemplateIcon.ico</Icon>
+  </TemplateData>
+  <TemplateContent>
+    <References>
+      <Reference>
+        <Assembly>EntityModels</Assembly>
+      </Reference>
+      <Reference>
+        <Assembly>Repository</Assembly>
+      </Reference>
+    </References>
+    <ProjectItem SubType="Command" TargetFileName="Commands\Create$fileinputname$Command.cs" ReplaceParameters="true">CqrsHandler.cs</ProjectItem>
+    <ProjectItem SubType="Command" TargetFileName="Commands\Delete$fileinputname$Command.cs" ReplaceParameters="true">CqrsHandler.cs</ProjectItem>
+    <ProjectItem SubType="Command" TargetFileName="Commands\Update$fileinputname$Command.cs" ReplaceParameters="true">CqrsHandler.cs</ProjectItem>
+    <ProjectItem SubType="Queries" TargetFileName="Queries\Get$fileinputname$DetailsQuery.cs" ReplaceParameters="true">CqrsHandler.cs</ProjectItem>
+    <ProjectItem SubType="Queries" TargetFileName="Queries\Get$fileinputname$ListQuery.cs" ReplaceParameters="true">CqrsHandler.cs</ProjectItem>
+  </TemplateContent>
+</VSTemplate>

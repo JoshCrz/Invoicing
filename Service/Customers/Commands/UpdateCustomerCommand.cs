@@ -45,25 +45,8 @@ namespace Service.Commands
                                     .Include(x=> x.CustomerAddresses)
                                     .FirstOrDefault(x => x.CustomerID == request.CustomerID);
 
-
-            //var address = customer.CustomersAddresses
-            //                         .FirstOrDefault(x=> x.AddressID == request.CustomerAddress.AddressID)?.Address;
-
-            //if(address == null)
-            //{
-
-            //    _mapper.Map(request.CustomerAddress, address);
-            //    customer.CustomersAddresses.Add(new EntityModels.CustomersAddresses()
-            //    {
-            //        Address = address,
-            //        Customer = customer
-            //    });
-            //} else
-            //{
-            //    _mapper.Map(request.CustomerAddress, address);
-            //}
-
             _mapper.Map(request, customer);
+
             _context.Customers.Update(customer);
             _context.SaveChanges();
 
@@ -74,12 +57,6 @@ namespace Service.Commands
     }
 
 
-    public class UpdateCustomerCommandValidator : AbstractValidator<UpdateCustomerCommand>
-    {
-        public UpdateCustomerCommandValidator()
-        {
-            
-        }
-    }
+    
 
 }

@@ -10,7 +10,6 @@ using System.Linq;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using Microsoft.EntityFrameworkCore;
-using FluentValidation;
 
 namespace Service.Queries
 {
@@ -49,21 +48,6 @@ namespace Service.Queries
             var mapped = _mapper.Map<CustomerDetailsDTO>(item);
 
             return Task.FromResult(CqrsResponse.QuerySuccess(mapped));
-        }
-    }
-
-
-    public class GetCustomerDetailsValidator : AbstractValidator<GetCustomerDetailsQuery>
-    {
-        InvoicingContext _context;
-        public GetCustomerDetailsValidator(InvoicingContext context)
-        {
-            _context = context;
-        }
-        public GetCustomerDetailsValidator()
-        {
-            RuleFor(x => x.CustomerID).NotNull();
-
         }
     }
 }
