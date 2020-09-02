@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { CustomersService } from '../customers.service';
+import { AddressService } from '../../shared/services/address.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { of } from 'rxjs';
 
@@ -25,7 +26,8 @@ export class CreateComponent implements OnInit {
   constructor(
     private customersService: CustomersService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private addressService: AddressService
     ) { }
 
   ngOnInit(): void {
@@ -42,7 +44,10 @@ export class CreateComponent implements OnInit {
         this.customersService.getCustomer(res.id)
           .subscribe((customer: any) => {
             if(customer && customer.data){
+
+              //generate a customer form
               this.customerForm = this.customersService.generateCustomerForm(customer.data);
+
               this.customer = customer.data;
               delete this.feedback;
             } else {
@@ -50,7 +55,12 @@ export class CreateComponent implements OnInit {
             }
           })        
       } else {
+
+        //new customer account, create an empty form
         this.customerForm = this.customersService.generateCustomerForm();
+
+        //generate an address form
+        this.addressForm = this.addressService.generateAddressForm();
         delete this.feedback;
       }
     })

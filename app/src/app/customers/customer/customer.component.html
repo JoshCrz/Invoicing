@@ -7,9 +7,9 @@
                     <p><strong>{{customer.companyType}}</strong></p>
                 </div>   
                 <div class="ml-auto">
-                    <span class="badge" [ngClass]="[customer.companyStatus == 'InActive' ? 'badge-warning' : 'badge-success']">
-                        {{customer.companyStatus == 'InActive' ? 'Not Active' : 'Active'}}
-                    </span>
+                  <span class="badge" [ngClass]="[customer.companyStatus == 'Active' ? 'badge-success' : 'badge-warning' ]">
+                    {{customer.companyStatus == 'Active' ? 'Active' : 'Not Active'}}
+                  </span>
                 </div>         
             </div>
         </div>
