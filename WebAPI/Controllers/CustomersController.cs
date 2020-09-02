@@ -64,15 +64,22 @@ namespace WebAPI.Controllers
         }
 
         [HttpPost("{id}/AddAddress")]
-        public ActionResult AddAddress(int id, [FromBody] AddCustomerAddressCommand command)
+        public ActionResult AddAddress(int id, [FromBody] CreateAddressCommand command)
         {
-            return Ok(_customerService.AddAddress(id, command));
+            return Ok(_customerService.AddCustomerAddress(id, command));
+        }
+
+        [HttpPut("{id}/UpdateAddress")]
+        public ActionResult UpdateAddress(int id, [FromBody] UpdateAddressCommand command)
+        {
+            return Ok(_customerService.UpdateCustomerAddress(id, command));
         }
 
         [HttpDelete("{id}/RemoveAddress")]
-        public ActionResult RemoveAddress(int id, [FromBody] RemoveCustomerAddressCommand command)
+        public ActionResult RemoveAddress(int id, [FromBody] DeleteAddressCommand command)
         {
-            return Ok(_customerService.RemoveAddress(id, command));
+            return Ok(_customerService.RemoveCustomerAddress(id, command));
         }
+
     }
 }

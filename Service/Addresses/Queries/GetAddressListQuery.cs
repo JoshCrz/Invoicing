@@ -28,7 +28,10 @@ namespace Service.Queries
         }
         public Task<CqrsResponse<List<AddressListDTO>>> Handle(GetAddressListQuery request, CancellationToken cancellationToken)
         {
-            var list = _context.Addresses.ProjectTo<AddressListDTO>(_mapper.ConfigurationProvider).ToList();
+            var list = _context.Addresses
+                            .ProjectTo<AddressListDTO>(_mapper.ConfigurationProvider)
+                            .ToList();
+
             return Task.FromResult(CqrsResponse.QuerySuccess(list));
         }
     }

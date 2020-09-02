@@ -58,14 +58,22 @@ namespace Service
             return ServiceResponse.Success(command, cresult);
 
         }
-        public IServiceResponse<AddCustomerAddressCommand, AddressDetailsDTO> AddAddress(int customerID, AddCustomerAddressCommand command)
+        public IServiceResponse<CreateAddressCommand, AddressDetailsDTO> AddCustomerAddress(int customerID, CreateAddressCommand command)
         {
             var cresult = _mediator
                             .Send(command).Result;
 
             return ServiceResponse.Success(command, cresult);
         }
-        public IServiceResponse<RemoveCustomerAddressCommand, AddressDetailsDTO> RemoveAddress(int customerID, RemoveCustomerAddressCommand command)
+
+        public IServiceResponse<UpdateAddressCommand, AddressDetailsDTO> UpdateCustomerAddress(int customerID, UpdateAddressCommand command)
+        {
+            var cresult = _mediator
+                            .Send(command).Result;
+
+            return ServiceResponse.Success(command, cresult);
+        }
+        public IServiceResponse<DeleteAddressCommand, AddressDetailsDTO> RemoveCustomerAddress(int customerID, DeleteAddressCommand command)
         {
             var cresult = _mediator
                             .Send(command).Result;

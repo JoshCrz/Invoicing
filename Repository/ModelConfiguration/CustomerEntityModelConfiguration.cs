@@ -20,6 +20,8 @@ namespace Repository.ModelConfiguration
             builder
                 .HasKey(m => m.CustomerID);
             builder
+                .HasIndex(m => m.CompanyName).IsUnique();
+            builder
                 .Property(m => m.CompanyName)
                 .HasMaxLength(50)
                 .IsRequired();

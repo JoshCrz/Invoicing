@@ -45,7 +45,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApiTest", "ApiTest\ApiTest.
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentation", "{A59978DE-4F75-4DEF-868B-F233217DCEAC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceTemplate", "ServiceTemplate\ServiceTemplate.csproj", "{9F3B5AA6-6E8E-43F5-95ED-8EA0E726195C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServiceTemplate", "ServiceTemplate\ServiceTemplate.csproj", "{9F3B5AA6-6E8E-43F5-95ED-8EA0E726195C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -78,7 +78,6 @@ Global
 		{BB2F7922-4389-495E-BF20-B6E09CDF7222}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BB2F7922-4389-495E-BF20-B6E09CDF7222}.Release|Any CPU.Build.0 = Release|Any CPU
 		{9F3B5AA6-6E8E-43F5-95ED-8EA0E726195C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9F3B5AA6-6E8E-43F5-95ED-8EA0E726195C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9F3B5AA6-6E8E-43F5-95ED-8EA0E726195C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9F3B5AA6-6E8E-43F5-95ED-8EA0E726195C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection

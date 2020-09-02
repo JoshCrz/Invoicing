@@ -8,7 +8,6 @@ namespace Service.Validators
         public CreateCustomerCommandValidator()
         {
             RuleFor(x => x.CompanyName).NotEmpty();
-            RuleFor(x => x.NatureOfBusiness).NotEmpty();
         }
     }
 }

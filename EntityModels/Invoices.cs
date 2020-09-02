@@ -17,6 +17,7 @@ namespace EntityModels
 
         // many to one relation between invoices and customer
         public virtual Customers Customer { get; set; }
+        public virtual ICollection<InvoiceItems> InvoiceItems { get; set; }
 
     }
 }

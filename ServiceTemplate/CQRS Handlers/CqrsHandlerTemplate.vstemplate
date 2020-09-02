@@ -2,24 +2,41 @@
   <TemplateData>
     <DefaultName>CqrsHandlerTemplate.cs</DefaultName>
     <Name>CQRS Commands and Queries template</Name>
-    <Description>Template for CQRS Handlers - creates Commands and Queries folders with related classes for crud operation</Description>
+    <Description>
+      Template for CQRS Handlers - creates Commands, Queries and Validators folders with related classes for each operation.
+    </Description>
     <ProjectType>CSharp</ProjectType>
     <SortOrder>10</SortOrder>
     <Icon>__TemplateIcon.ico</Icon>
   </TemplateData>
   <TemplateContent>
-    <References>
+    <!--<References>
       <Reference>
         <Assembly>EntityModels</Assembly>
       </Reference>
       <Reference>
         <Assembly>Repository</Assembly>
       </Reference>
-    </References>
-    <ProjectItem SubType="Command" TargetFileName="Commands\Create$fileinputname$Command.cs" ReplaceParameters="true">CqrsHandler.cs</ProjectItem>
-    <ProjectItem SubType="Command" TargetFileName="Commands\Delete$fileinputname$Command.cs" ReplaceParameters="true">CqrsHandler.cs</ProjectItem>
-    <ProjectItem SubType="Command" TargetFileName="Commands\Update$fileinputname$Command.cs" ReplaceParameters="true">CqrsHandler.cs</ProjectItem>
-    <ProjectItem SubType="Queries" TargetFileName="Queries\Get$fileinputname$DetailsQuery.cs" ReplaceParameters="true">CqrsHandler.cs</ProjectItem>
-    <ProjectItem SubType="Queries" TargetFileName="Queries\Get$fileinputname$ListQuery.cs" ReplaceParameters="true">CqrsHandler.cs</ProjectItem>
+    </References>-->
+    <Folder Name="Validators" TargetFolderName="Validators">
+      <ProjectItem TargetFileName="Create$fileinputname$CommandValidator.cs" ReplaceParameters="true">CreateCqrsValidator.cs</ProjectItem>
+      <ProjectItem TargetFileName="Update$fileinputname$CommandValidator.cs" ReplaceParameters="true">UpdateCqrsValidator.cs</ProjectItem>
+      <ProjectItem TargetFileName="Delete$fileinputname$CommandValidator.cs" ReplaceParameters="true">DeleteCqrsValidator.cs</ProjectItem>
+    </Folder>
+
+    <Folder Name="Queries" TargetFolderName="Queries">
+      <ProjectItem TargetFileName="Get$fileinputname$DetailsQuery.cs" ReplaceParameters="true">CqrsDetailsQueryHandler.cs</ProjectItem>
+      <ProjectItem TargetFileName="Get$fileinputname$ListQuery.cs" ReplaceParameters="true">CqrsListQueryHandler.cs</ProjectItem>
+    </Folder>
+
+    <Folder Name="Commands" TargetFolderName="Commands">
+      <ProjectItem TargetFileName="Create$fileinputname$Command.cs" ReplaceParameters="true">CqrsCommandHandler.cs</ProjectItem>
+      <ProjectItem TargetFileName="Delete$fileinputname$Command.cs" ReplaceParameters="true">CqrsCommandHandler.cs</ProjectItem>
+      <ProjectItem TargetFileName="Update$fileinputname$Command.cs" ReplaceParameters="true">CqrsCommandHandler.cs</ProjectItem>
+    </Folder>
+
+    <CustomParameters>
+      <CustomParameter Name="$rootitemname$" Value="$fileinputname$" />
+    </CustomParameters>
   </TemplateContent>
 </VSTemplate>
