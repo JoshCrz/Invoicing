@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using EntityModels;
 using Service.Commands;
-using Service.Configuration.ViewModels;
 using Service.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -35,10 +34,17 @@ namespace WebAPI.Configurations
             // address to address details dto
             CreateMap<Addresses, AddressDetailsDTO>();
             CreateMap<AddressDetailsDTO, Addresses>();
+            CreateMap<Addresses, AddressListDTO>();
 
             // invoices
             CreateMap<Invoices, InvoiceListDTO>();
             CreateMap<Invoices, InvoiceDetailsDTO>();
+
+            // statuses
+            CreateMap<CustomerStatuses, CustomerStatusDetailsDTO>();
+            CreateMap<CustomerStatusDetailsDTO, CustomerStatuses>();
+            CreateMap<CustomerStatuses, CustomerStatusListDTO>();
+
 
             // commands and queries
             CreateMap<CreateCustomerCommand, Customers>();
@@ -46,6 +52,9 @@ namespace WebAPI.Configurations
 
             CreateMap<CreateAddressCommand, Addresses>();
             CreateMap<UpdateAddressCommand, Addresses>();
+
+            CreateMap<CreateCustomerStatusCommand, CustomerStatuses>();
+            CreateMap<UpdateCustomerStatusCommand, CustomerStatuses>();
 
         }
     }

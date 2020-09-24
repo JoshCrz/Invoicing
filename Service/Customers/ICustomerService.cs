@@ -14,10 +14,14 @@ namespace Service
         IServiceResponse<CreateCustomerCommand, CustomerDetailsDTO> CreateCustomer(CreateCustomerCommand command);
         IServiceResponse<UpdateCustomerCommand, CustomerDetailsDTO> UpdateCustomer(int customerID, UpdateCustomerCommand command);
         IServiceResponse<DeleteCustomerCommand, CustomerDetailsDTO> DeleteCustomer(int customerID, DeleteCustomerCommand command);
-        IServiceResponse<CreateAddressCommand, AddressDetailsDTO> AddCustomerAddress(int customerID, CreateAddressCommand command);
-        IServiceResponse<UpdateAddressCommand, AddressDetailsDTO> UpdateCustomerAddress(int customerID, UpdateAddressCommand command);
+        //IServiceResponse<CreateAddressCommand, AddressDetailsDTO> AddCustomerAddress(int customerID, CreateAddressCommand command);
+        //IServiceResponse<UpdateAddressCommand, AddressDetailsDTO> UpdateCustomerAddress(int customerID, UpdateAddressCommand command);
+        //IServiceResponse<DeleteAddressCommand, AddressDetailsDTO> RemoveCustomerAddress(int customerID, DeleteAddressCommand command);
 
-        IServiceResponse<DeleteAddressCommand, AddressDetailsDTO> RemoveCustomerAddress(int customerID, DeleteAddressCommand command);
+
+        //IServiceResponse<CreateCustomerStatusCommand, CustomerStatusDetailsDTO> AddCustomerStatus(int customerID, CreateCustomerStatusCommand command);
+        //IServiceResponse<UpdateCustomerStatusCommand, CustomerStatusDetailsDTO> UpdateCustomerStatus(int customerID, UpdateCustomerStatusCommand command);
+        //IServiceResponse<DeleteCustomerStatusCommand, CustomerStatusDetailsDTO> RemoveCustomerStatus(int customerID, DeleteCustomerStatusCommand command);
 
     }
 }

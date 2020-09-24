@@ -14,7 +14,6 @@ namespace Service.Commands
 {
     public class UpdateAddressCommand : ICqrsRequestWrapper<AddressDetailsDTO>
     {
-        public int? CustomerID { get; set; }
         public int AddressID { get; set; }
         public string AddressLine1 { get; set; }
         public string AddressLine2 { get; set; }
@@ -37,13 +36,8 @@ namespace Service.Commands
         }
         public Task<CqrsResponse<AddressDetailsDTO>> Handle(UpdateAddressCommand request, CancellationToken cancellationToken)
         {
-            // find customer
-            var customer = _context.Customers
-                                    .Include(x=> x.CustomerAddresses).ThenInclude(x=> x.Address)
-                                    .FirstOrDefault(x => x.CustomerID == request.CustomerID);
-
             // find address
-            var address = customer.CustomerAddresses
+            var address = _context.CustomerAddresses
                                     .FirstOrDefault(x => x.AddressID == request.AddressID).Address;
 
             _mapper.Map(request, address);

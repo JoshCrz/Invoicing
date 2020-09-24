@@ -13,6 +13,10 @@ namespace Service.Queries
 {
     public class GetAddressDetailsQuery : ICqrsRequestWrapper<AddressDetailsDTO>
     {
+        public GetAddressDetailsQuery(int addressID)
+        {
+            AddressID = addressID;
+        }
         public int AddressID { get; set; }
     }
 

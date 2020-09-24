@@ -3,6 +3,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Repository;
 using Service;
+using Service.Addresses;
+using Service.CustomerStatuses;
 using Service.Queries;
 using System;
 using System.Collections.Generic;
@@ -27,6 +29,9 @@ namespace WebAPI.Configurations
         {
             // regsiter business services
             services.AddScoped<CustomersService>();
+            services.AddScoped<CustomerStatusService>();
+            services.AddScoped<AddressesService>();
+
         }
 
     }

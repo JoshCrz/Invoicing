@@ -10,8 +10,6 @@ namespace Service.Validators
     {
         public CreateAddressComandValidator()
         {
-            RuleFor(x => x.CustomerID).NotEmpty();
-
             RuleFor(x => x.AddressLine1).NotEmpty();
             RuleFor(x => x.AddressLine2).NotEmpty();
             RuleFor(x => x.PostCode).NotEmpty();

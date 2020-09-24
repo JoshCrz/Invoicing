@@ -65,4 +65,5 @@ namespace EntityModels
         public ICollection<Customers> Customers { get; set; }
 
     }
+
 }

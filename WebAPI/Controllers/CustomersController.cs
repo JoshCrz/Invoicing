@@ -63,23 +63,41 @@ namespace WebAPI.Controllers
             return Ok(_customerService.DeleteCustomer(id, command));
         }
 
-        [HttpPost("{id}/AddAddress")]
-        public ActionResult AddAddress(int id, [FromBody] CreateAddressCommand command)
-        {
-            return Ok(_customerService.AddCustomerAddress(id, command));
-        }
+        //[HttpPost("{id}/AddAddress")]
+        //public ActionResult AddAddress(int id, [FromBody] CreateAddressCommand command)
+        //{
+        //    return Ok(_customerService.AddCustomerAddress(id, command));
+        //}
 
-        [HttpPut("{id}/UpdateAddress")]
-        public ActionResult UpdateAddress(int id, [FromBody] UpdateAddressCommand command)
-        {
-            return Ok(_customerService.UpdateCustomerAddress(id, command));
-        }
+        //[HttpPut("{id}/UpdateAddress")]
+        //public ActionResult UpdateAddress(int id, [FromBody] UpdateAddressCommand command)
+        //{
+        //    return Ok(_customerService.UpdateCustomerAddress(id, command));
+        //}
 
-        [HttpDelete("{id}/RemoveAddress")]
-        public ActionResult RemoveAddress(int id, [FromBody] DeleteAddressCommand command)
-        {
-            return Ok(_customerService.RemoveCustomerAddress(id, command));
-        }
+        //[HttpDelete("{id}/RemoveAddress")]
+        //public ActionResult RemoveAddress(int id, [FromBody] DeleteAddressCommand command)
+        //{
+        //    return Ok(_customerService.RemoveCustomerAddress(id, command));
+        //}
+
+        //[HttpPost("{id}/AddStatus")]
+        //public ActionResult AddStatus(int id, [FromBody] CreateCustomerStatusCommand command)
+        //{
+        //    return Ok(_customerService.AddCustomerStatus(id, command));
+        //}
+
+        //[HttpPut("{id}/UpdateStatus")]
+        //public ActionResult UpdateStatus(int id, [FromBody] UpdateCustomerStatusCommand command)
+        //{
+        //    return Ok(_customerService.UpdateCustomerStatus(id, command));
+        //}
+
+        //[HttpDelete("{id}/RemoveStatus")]
+        //public ActionResult RemoveStatus(int id, [FromBody] DeleteCustomerStatusCommand command)
+        //{
+        //    return Ok(_customerService.RemoveCustomerStatus(id, command));
+        //}
 
     }
 }

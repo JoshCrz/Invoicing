@@ -41,7 +41,7 @@ namespace Service.Commands
             // add address if passed
             if(request.CustomerAddress != null)
             {
-                var address = new Addresses();
+                var address = new EntityModels.Addresses();
                 _mapper.Map(request.CustomerAddress, address);
 
                 newcustomer.CustomerAddresses.Add(new CustomersAddresses()
